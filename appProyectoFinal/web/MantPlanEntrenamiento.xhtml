@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Plan Entrenamiento</title>
+        <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
+        <h:outputStylesheet library="css" name="autoregistro.css"></h:outputStylesheet>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form>
+            <a href="#{request.contextPath}/faces/PaginaPrincipal.xhtml">Regresar</a>
+            <center>
+             <h1 style="color: #0E6251">Plan entrenmiento - Diario, Semanal, Mensual</h1>
+             </center>
+             <br></br>
+             <br></br> 
+             <div align="center" style=" width: 65%">
+                <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
+              <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+              <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
+              <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
+              <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

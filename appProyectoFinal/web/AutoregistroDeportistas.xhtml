@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:head>
+        <title>Autoregistro Deportistas</title>
+        <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
+        <h:outputStylesheet library="css" name="autoregistro.css"></h:outputStylesheet>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+
+    <h:body>         
+        <div class="divForm" align="center">
+            <h:form>               
+                <table>
+                    <caption>
+                        <h2>Autoregistro Deportistas </h2>
+                    </caption>
+
+                    <tr>
+                        <td>Tipo de Identificación</td>
+                        <td>
+                            <h:selectOneMenu label="Identificacion" 
+                                             onchange="submit()" value="#{beanAutoregistro}">
+                                <f:selectItems value="#{beanIdentificacion}"></f:selectItems>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Número de Identificación</td>
+                        <td><h:inputText value="#{beanAutoregistro.numIdentificacion}"></h:inputText></td>
+                    </tr>
+
+                    <tr>
+                        <td>Nombre</td>
+                        <td><h:inputText value="#{beanAutoregistro.nombre}"></h:inputText></td>
+                    </tr>
+
+                    <tr>
+                        <td>Primer Apellido</td>
+                        <td><h:inputText value="#{beanAutoregistro.primerApellido}"></h:inputText></td>
+                    </tr>
+
+                    <tr>
+                        <td>Segundo Apellido</td>
+                        <td><h:inputText value="#{beanAutoregistro.segApellido}"></h:inputText></td>
+                    </tr>
+
+                    <tr>
+                        <td>Fecha Nacimiento</td>
+                        <td><h:inputText t:type="date" value="#{beanAutoregistro.fechaNacPicker}"></h:inputText></td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Dirección </td>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td>Provincia</td>
+                                    <td align="right">
+                                        <h:selectOneMenu value="#{beanDireccion.codProvincia}" onchange="submit()" onblur="#{beanDireccion.transferir()}" >
+                                            <f:selectItems value="#{beanDireccion.listaProvincias}"></f:selectItems>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Cantón</td>
+                                    <td align="right">
+                                        <h:selectOneMenu value="#{beanDireccion.idCanton}" onchange="submit()" onblur="#{beanDireccion.transferir()}" >
+                                            <f:selectItems value="#{beanDireccion.listaCantones}"></f:selectItems>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Distrito</td>
+                                    <td align="right">
+                                        <h:selectOneMenu value="#{beanDireccion.codDistrito}" onchange="submit()" onblur="#{beanDireccion.transferir()}" >
+                                            <f:selectItems value="#{beanDireccion.listaDistritos}"></f:selectItems>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Barrio</td>
+                                    <td align="right">
+                                        <h:selectOneMenu value="#{beanDireccion.codBarrio}" onchange="submit()" onblur="#{beanDireccion.transferir()}" >
+                                            <f:selectItems value="#{beanDireccion.listaBarrios}"></f:selectItems>
+                                        </h:selectOneMenu> 
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Otras Señas</td>
+                                    <td align="right"><h:inputTextarea value="#{beanDireccion.otrasSenas}" 
+                                                                       onblur="#{beanDireccion.transferir()}" >
+                                        </h:inputTextarea></td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>Teléfono</td>
+                        <td> 
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h:dataTable class="tablaTel" value="#{beanAutoregistro.listaTelefonosUsuario}" var="per">
+                                            <h:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Número"></h:outputText>
+                                                </f:facet>
+                                                <h:outputText value="#{per.numero_telefono}"></h:outputText>
+                                            </h:column>
+                                        </h:dataTable>                             
+                                    </td>
+
+                                    <td align="right">
+                                        <h:inputText value="#{beanAutoregistro.numTelefono}" style="width: 50%" maxlength="8"></h:inputText>
+
+                                        <h:selectOneMenu label="Tipo Telefono" 
+                                                         onchange="submit()" value="#{beanTelefono.telefono}">
+                                            <f:selectItems value="#{beanTelefono.listaTipoTelefono}"></f:selectItems>
+                                        </h:selectOneMenu>
+
+                                        <h:outputText value="#{beanAutoregistro.mensajeTel}" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
+                                        <h:commandButton actionListener="#{beanAutoregistro.agregarTelefonos()}" value="Agregar Teléfono" 
+                                                         style="width: 40%;height: 25px;margin-left: 10px"></h:commandButton> 
+                                        <h:commandButton value="Limpiar" actionListener="#{beanAutoregistro.limpiarListaTelefonos()}"
+                                                         style="width: 40%;height: 25px;margin-left: 260px"></h:commandButton>
+                                    </td>                                                                     
+                                </tr>
+
+                            </table>
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td>Correo Electrónico</td>
+                        <td><h:inputText value="#{beanAutoregistro.correoElect}"></h:inputText></td>
+                    </tr>  
+                    <tr>
+                        <td>Disciplina deportiva</td>
+                        <td>
+
+                            <h:selectOneMenu label="" 
+                                             onchange="submit()" value="#{beanProgramaDeas.codigo}">
+                                <f:selectItems value="#{beanProgramaDeas.listaPrograma}"></f:selectItems>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>   
+                    <tr>
+                    <td>Peso
+                        <h:inputText value="#{beanAutoregistro.peso}"></h:inputText></td>
+                    <td>Talla
+                        <h:inputText value="#{beanAutoregistro.talla}"></h:inputText>
+                        Altura
+                        <h:inputText value="#{beanAutoregistro.altura}"></h:inputText>
+                    <h:commandButton  class="botones" actionListener="#{beanAutoregistro.calcularIMC()}" value="Calcular"></h:commandButton>
+                    </td>
+                    </tr>
+                    <tr>
+                       <td>
+                        IMC:
+                       <h:inputText value="#{beanAutoregistro.IMC}"></h:inputText></td>
+                        <td>
+                        Grado Obesidad:
+                        <h:inputText value="#{beanAutoregistro.gradoObesidad}"></h:inputText></td>
+                    </tr>
+                </table>
+                <h:commandButton  class="botones" actionListener="#{beanAutoregistro.guardarUsuario()}" value="Registrar"></h:commandButton>
+                <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

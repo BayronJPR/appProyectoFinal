@@ -1,0 +1,121 @@
+
+
+body{
+  font-family: Poppins-Regular;
+  src: url('./fonts/poppins/Poppins-Regular.ttf'); 
+  font-size: 14px;
+  background-image: url('../resources/images/fondoAutorregistro.jpg');
+  background-size: cover;
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url('./fonts/poppins/Poppins-Regular.ttf'); 
+}
+
+/*///////////////////////////////////////////////////////////*/
+
+.divForm{
+ position: relative;
+ top: 20px;
+}
+
+
+
+form label {
+display: inline-block;
+color: #18A27F;
+width: 160px;
+}
+
+form input {
+display: inline-block;
+width: 280px;
+margin-bottom: 3px;
+margin-top: 3px;
+height: 22px;
+
+}
+
+input{
+border: solid #96E8A6 1px;
+height: 22px;
+border-radius: 6px 6px 6px 6px;
+width: 139px;
+}
+
+
+form textArea{
+font-family: Poppins-Regular;
+src: url('./fonts/poppins/Poppins-Regular.ttf');
+font-size: 13px;
+border: solid #96E8A6 1px;
+height: 25px;
+border-radius: 7px 7px 7px 7px;
+width: 135px;
+margin-top: 3px;
+}
+
+
+
+        
+/* 
+Generic Styling, for Desktops/Laptops 
+*/
+table {
+        width: 80%; 
+        border-collapse: collapse;        
+ 
+}
+/* Zebra striping */
+
+caption{
+    color: white;
+    background-color: #4E9620;
+    font-weight: 600; 
+    width: 600;
+}
+
+tr{
+    height: 5px;
+    font-weight: 600;
+    color: #4D4D4D;
+}
+tr:nth-of-type(odd) { 
+       background: #eee;
+
+}
+th { 
+        background: #2B7952; 
+        color: black; 
+        font-weight: bold; 
+}
+td, th { 
+        padding: 2px;
+        height: 2px;
+        border: 0.5px solid #AFD8C0; 
+        text-align: left; 
+}
+        
+.botones{
+width: 20%;
+height: 30px;
+font-weight: bold;
+color: white;
+background-color: #4E9620;
+border: none;
+margin: 3px;
+margin-top: 18px;
+margin-bottom: 10px;
+}
+
+.botones:hover{
+ background: #43A456;
+}
+
+/*tabla de telefonos*/
+
+.tablaTel{
+    width: 190px;
+}
+
