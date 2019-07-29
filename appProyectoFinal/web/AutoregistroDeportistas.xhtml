@@ -12,11 +12,19 @@
         <h:outputStylesheet library="css" name="autoregistro.css"></h:outputStylesheet>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </h:head>
+    </h:head>    
 
-    <h:body>         
+    <h:body>      
+
         <div class="divForm" align="center">
-            <h:form>               
+            <h:form>   
+                <div align="center" style=" width: 65%">
+                    <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>                    
+                    <input type="button" onclick=" location.href = 'AyudaAutoRegistroDeportistas.xhtml'" value="Ayuda" style="margin-left: 5px; width: 10%" /> 
+                </div>
                 <table>
                     <caption>
                         <h2>Autoregistro Deportistas </h2>
@@ -161,22 +169,22 @@
                         </td>
                     </tr>   
                     <tr>
-                    <td>Peso
-                        <h:inputText value="#{beanAutoregistro.peso}"></h:inputText></td>
-                    <td>Talla
-                        <h:inputText value="#{beanAutoregistro.talla}"></h:inputText>
-                        Altura
-                        <h:inputText value="#{beanAutoregistro.altura}"></h:inputText>
-                    <h:commandButton  class="botones" actionListener="#{beanAutoregistro.calcularIMC()}" value="Calcular"></h:commandButton>
-                    </td>
+                        <td>Peso
+                            <h:inputText value="#{beanAutoregistro.peso}"></h:inputText></td>
+                        <td>Talla
+                            <h:inputText value="#{beanAutoregistro.talla}"></h:inputText>
+                            Altura
+                            <h:inputText value="#{beanAutoregistro.altura}"></h:inputText>
+                            <h:commandButton  class="botones" actionListener="#{beanAutoregistro.calcularIMC()}" value="Calcular"></h:commandButton>
+                        </td>
                     </tr>
                     <tr>
-                       <td>
-                        IMC:
-                       <h:inputText value="#{beanAutoregistro.IMC}"></h:inputText></td>
                         <td>
-                        Grado Obesidad:
-                        <h:inputText value="#{beanAutoregistro.gradoObesidad}"></h:inputText></td>
+                            IMC:
+                            <h:inputText value="#{beanAutoregistro.IMC}"></h:inputText></td>
+                        <td>
+                            Grado Obesidad:
+                            <h:inputText value="#{beanAutoregistro.gradoObesidad}"></h:inputText></td>
                     </tr>
                 </table>
                 <h:commandButton  class="botones" actionListener="#{beanAutoregistro.guardarUsuario()}" value="Registrar"></h:commandButton>

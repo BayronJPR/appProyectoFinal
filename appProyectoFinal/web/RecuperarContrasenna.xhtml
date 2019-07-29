@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
     <h:head>
         <title>Ingreso</title>
         <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
@@ -35,50 +36,22 @@
 
                     <h:form class="login100-form validate-form">
                         <div class="wrap-input100 validate-input m-b-26" data-validate="Usuario Requerido">
-                            <span class="label-input100">Usuario</span>
+                            Ingresa tu correo electrónico para la recuperación de la cuenta
+                            <br></br>
                             <h:inputText class="input100" value="" ></h:inputText>
                             <span class="focus-input100"></span>
                         </div>
 
-                        <div class="wrap-input100 validate-input m-b-18" data-validate = "Contraseña Requerida">
-                            <span class="label-input100">Contraseña</span>
-                            <h:inputSecret class="input100" value="#"></h:inputSecret>
-                            <span class="focus-input100"></span>
-                        </div>
-                        
-                         <div class="wrap">
-                        <h:outputText class="label-input100" value="Perfil"></h:outputText>
-                        <h:selectOneMenu label="per" value="#{beanIngreso.tipoPerfil}">
-                            <f:selectItems value="#{beanPerfil.listaPerfil}"></f:selectItems>
-                        </h:selectOneMenu>
-                    </div>
-
-                        <div style="position: relative; left: 75%;
-                             top: 50%;">
-                            <a href="#{request.contextPath}/faces/AutoregistroDeportistas.xhtml" class="txt1">
-                                Autoregistro Deportistas
-                            </a>
-                        </div>
 
                         <div class="container-login100-form-btn" style="position: relative; top: 45px">
-                            <h:commandButton class="login100-form-btn" value="Ingresar" actionListener="#"></h:commandButton>
+                            <h:commandButton class="login100-form-btn" value="Aceptar" actionListener="#"></h:commandButton>
+                            <h:commandButton class="login100-form-btn" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar"></h:commandButton>
 
-                        </div>
-                        
-                        <div style="position: relative; left: 50%;
-                             top: 50%;">
-                            <a href="#{request.contextPath}/faces/RecuperarContrasenna.xhtml" class="txt1">
-                                ¿Olvidaste tu Contraseña?
-                            </a>
-                        </div>                   
-
-
-
+                        </div>    
                     </h:form>
                 </div>
             </div>
         </div>
     </h:body>
 </html>
-
 
