@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class beanDireccion implements Serializable {
 
     /**
-     * Creates a new instance of beanDireccion
+     * Creates a new instance of beanDireccion_
      */
     public beanDireccion() {
     }
