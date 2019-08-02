@@ -13,5 +13,6 @@ public class PRUEBA {
     
     
     int prueba;
+    String prueba2;
     
 }
