@@ -380,8 +380,8 @@ public class beanDireccion implements Serializable {
     
     public void transferir(){
         FacesContext context= FacesContext.getCurrentInstance();
-        beanRegistroUsuario beanAuto= 
-          context.getApplication().evaluateExpressionGet(context,"#{beanRegistroUsuario}",beanRegistroUsuario.class);
+        beanRegistroInstructor beanAuto= 
+          context.getApplication().evaluateExpressionGet(context,"#{beanRegistroInstructor}",beanRegistroInstructor.class);
         
         beanAuto.setCodprovincia(codProvincia);
         beanAuto.setCodcanton(idCanton);

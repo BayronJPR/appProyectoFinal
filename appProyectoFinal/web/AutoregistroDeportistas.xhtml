@@ -35,7 +35,7 @@
                         <td>
                             <h:selectOneMenu label="Identificacion" 
                                              onchange="submit()" value="#{beanAutoregistro}">
-                                <f:selectItems value="#{beanIdentificacion}"></f:selectItems>
+                                <f:selectItems value="#{beanTipoIdentificacion.listaTipoIdent}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -164,7 +164,7 @@
 
                             <h:selectOneMenu label="" 
                                              onchange="submit()" value="#{beanProgramaDeas.codigo}">
-                                <f:selectItems value="#{beanProgramaDeas.listaPrograma}"></f:selectItems>
+                                <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinas}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
                     </tr>   

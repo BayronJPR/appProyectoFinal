@@ -21,7 +21,7 @@
                     <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
                     <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
                     <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
-                    <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Buscar" style="margin-left: 5px; width: 10%"></h:commandButton>
                     <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
                 </div>
                 <table>
@@ -33,30 +33,30 @@
                         <td>Tipo de Identificación</td>
                         <td>
                             <h:selectOneMenu label="Identificacion" 
-                                             onchange="submit()" value="#{beanAutoregistro.tipoIdentificacion}">
-                                <f:selectItems value="#{beanIdentificacion.listaTipoIdent}"></f:selectItems>
+                                             onchange="submit()" value="#{beanRegistroInstructor.tipoIdentificacion}">
+                                <f:selectItems value="#{beanTipoIdentificacion.listaTipoIdent}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
                     </tr>
 
                     <tr>
                         <td>Número de Identificación</td>
-                        <td><h:inputText value="#{beanAutoregistro.numIdentificacion}"></h:inputText></td>
+                        <td><h:inputText value="#{beanRegistroInstructor.cedula}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Nombre</td>
-                        <td><h:inputText value="#{beanAutoregistro.nombre}"></h:inputText></td>
+                        <td><h:inputText value="#{beanRegistroInstructor.nombre}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Primer Apellido</td>
-                        <td><h:inputText value="#{beanAutoregistro.primerApellido}"></h:inputText></td>
+                        <td><h:inputText value="#{beanRegistroInstructor.apellido1}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Segundo Apellido</td>
-                        <td><h:inputText value="#{beanAutoregistro.segApellido}"></h:inputText></td>
+                        <td><h:inputText value="#{beanRegistroInstructor.apellido2}"></h:inputText></td>
                     </tr>                  
 
                     <tr>
@@ -116,31 +116,32 @@
                         <td> 
                             <table>
                                 <tr>
-                                    <td>
-                                        <h:dataTable class="tablaTel" value="#{beanAutoregistro.listaTelefonosUsuario}" var="per">
+                                    <td><!--
+                                        <h:dataTable class="tablaTel" value="" var="per">
                                             <h:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Número"></h:outputText>
                                                 </f:facet>
                                                 <h:outputText value="#{per.numero_telefono}"></h:outputText>
                                             </h:column>
-                                        </h:dataTable>                             
+                                        </h:dataTable>   
+                                        -->
                                     </td>
 
-                                    <td align="right">
-                                        <h:inputText value="#{beanAutoregistro.numTelefono}" style="width: 50%" maxlength="8"></h:inputText>
+                                    <td align="right"><!--
+                                        <h:inputText value="#{beanRegistroInstructor.numeroTelefono}" style="width: 50%" maxlength="8"></h:inputText>
 
                                         <h:selectOneMenu label="Tipo Telefono" 
                                                          onchange="submit()" value="#{beanTelefono.telefono}">
                                             <f:selectItems value="#{beanTelefono.listaTipoTelefono}"></f:selectItems>
                                         </h:selectOneMenu>
 
-                                        <h:outputText value="#{beanAutoregistro.mensajeTel}" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
-                                        <h:commandButton actionListener="#{beanAutoregistro.agregarTelefonos()}" value="Agregar Teléfono" 
+                                        <h:outputText value="" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
+                                        <h:commandButton actionListener="}" value="Agregar Teléfono" 
                                                          style="width: 40%;height: 25px;margin-left: 10px"></h:commandButton> 
-                                        <h:commandButton value="Limpiar" actionListener="#{beanAutoregistro.limpiarListaTelefonos()}"
+                                        <h:commandButton value="Limpiar" actionListener=""
                                                          style="width: 40%;height: 25px;margin-left: 260px"></h:commandButton>
-                                    </td>                                                                     
+                                        --></td>                                                                     
                                 </tr>
 
                             </table>
@@ -149,15 +150,15 @@
 
                     <tr>
                         <td>Correo Electrónico</td>
-                        <td><h:inputText value="#{beanAutoregistro.correoElect}"></h:inputText></td>
+                        <td><h:inputText value="#{beanRegistroInstructor.correoElectronico}"></h:inputText></td>
                     </tr>  
                     <tr>
                         <td>Disciplina Deportiva que entrena</td>
                         <td>
 
-                            <h:selectOneMenu label="Programa DEAS" 
-                                             onchange="submit()" value="#{beanProgramaDeas.codigo}">
-                                <f:selectItems value="#{beanProgramaDeas.listaPrograma}"></f:selectItems>
+                            <h:selectOneMenu label="Disciplina" 
+                                             onchange="submit()" value="#{beanRegistroInstructor.disciplinaDeportiva}">
+                                <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinas}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
                     </tr>   
