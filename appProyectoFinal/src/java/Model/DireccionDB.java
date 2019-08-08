@@ -8,6 +8,7 @@ package Model;
 import DAO.AccesoDatos;
 import DAO.SNMPExceptions;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -67,4 +68,38 @@ public class DireccionDB {
         }
     }
 
+    public boolean consultarDireccionPorID(int id, int tipoID)
+            throws SNMPExceptions, SQLException {
+
+        boolean existe = false;
+        String select = "";
+        try {
+            //Se intancia la clase de acceso a datos
+            AccesoDatos accesoDatos = new AccesoDatos();
+
+            //Se crea la sentencia de Busqueda
+            select = "Select * from Direccion where identificacionUsuario=" + id  +"AND"+ "tipoIdentificacionUsuario=" + tipoID;
+
+            //se ejecuta la sentencia sql
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            //se llama el array con los proyectos
+            if (rsPA.next()) {
+
+                existe = true;
+            }
+
+            rsPA.close();
+
+            return existe;
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+
+    }
 }

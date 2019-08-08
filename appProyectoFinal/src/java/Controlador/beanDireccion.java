@@ -34,9 +34,16 @@ public class beanDireccion implements Serializable {
 
     /**
      * Creates a new instance of beanDireccion_
+     * 
+     * 
      */
     public beanDireccion() {
     }
+    
+    private int idDireccion;
+    private int identificacionUsuario;
+    private int tipoIdentificacionUsuario;
+    private int log;
     
     //variables de Provincia 
     private int codProvincia;//
@@ -68,6 +75,14 @@ public class beanDireccion implements Serializable {
     private String dscBarrio;
     private int logActivoBar;
     private String otrasSenas;
+    
+    //Control
+    String fechaRegistra;
+    int idRegistra;
+    String fechaEdita;
+    int idEdita;
+    
+    String Mensaje;
 
     //listas 
     private LinkedList<SelectItem> listaProvincias = new LinkedList<>();
@@ -75,6 +90,8 @@ public class beanDireccion implements Serializable {
     private LinkedList<SelectItem> listaDistritos = new LinkedList<>();
     private LinkedList<SelectItem> listaBarrios = new LinkedList<>();
 
+    
+    
     public int getCodProvincia() {
         return codProvincia;
     }
@@ -259,6 +276,80 @@ public class beanDireccion implements Serializable {
         this.otrasSenas = otrasSenas;
     }
 
+    public int getIdDireccion() {
+        return idDireccion;
+    }
+
+    public void setIdDireccion(int idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+
+    public int getIdentificacionUsuario() {
+        return identificacionUsuario;
+    }
+
+    public void setIdentificacionUsuario(int identificacionUsuario) {
+        this.identificacionUsuario = identificacionUsuario;
+    }
+
+    public int getTipoIdentificacionUsuario() {
+        return tipoIdentificacionUsuario;
+    }
+
+    public void setTipoIdentificacionUsuario(int tipoIdentificacionUsuario) {
+        this.tipoIdentificacionUsuario = tipoIdentificacionUsuario;
+    }
+
+    public int getLog() {
+        return log;
+    }
+
+    public void setLog(int log) {
+        this.log = log;
+    }
+
+    public String getFechaRegistra() {
+        return fechaRegistra;
+    }
+
+    public void setFechaRegistra(String fechaRegistra) {
+        this.fechaRegistra = fechaRegistra;
+    }
+
+    public int getIdRegistra() {
+        return idRegistra;
+    }
+
+    public void setIdRegistra(int idRegistra) {
+        this.idRegistra = idRegistra;
+    }
+
+    public String getFechaEdita() {
+        return fechaEdita;
+    }
+
+    public void setFechaEdita(String fechaEdita) {
+        this.fechaEdita = fechaEdita;
+    }
+
+    public int getIdEdita() {
+        return idEdita;
+    }
+
+    public void setIdEdita(int idEdita) {
+        this.idEdita = idEdita;
+    }
+
+    public String getMensaje() {
+        return Mensaje;
+    }
+
+    public void setMensaje(String Mensaje) {
+        this.Mensaje = Mensaje;
+    }
+    
+    
+
     //Llena la lista con provincias y se llena el combo con provincias.
     public LinkedList<SelectItem> getListaProvincias() throws SNMPExceptions, SQLException {
 
@@ -379,27 +470,35 @@ public class beanDireccion implements Serializable {
     }
     
     
-    public void insertarTelefono() throws SNMPExceptions, SQLException {
+    public void insertarDireccion() throws SNMPExceptions, SQLException {
 
-        Direccion dir = new Direccion(this.tipoIdentificacionUsuario, this.identificacionUsuario,
-                this.telefono, this.log);
+        Direccion dir = new Direccion(this.identificacionUsuario, this.tipoIdentificacionUsuario, 
+                this.codProvincia, this.codCanton, this.codDistrito, this.codBarrio, this.otrasSenas, 
+                this.fechaRegistra,this.idRegistra, this.fechaEdita,this.idEdita,this.log);
+         
 
-        TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+        DireccionDB dirDB = new DireccionDB();
 
-        if (this.telefono.equals("")) {
+        if (this.identificacionUsuario == 0 && this.tipoIdentificacionUsuario == 0) {
 
             this.setMensaje("Campos Obligatorios!");
 
         } else {
 
-            if (telDB.consultarTelefono(this.telefono) == true) {
+            if (dirDB.consultarDireccionPorID(this.identificacionUsuario, this.tipoIdentificacionUsuario) == true) {
 
-                this.setMensaje("Teléfono ya existe!");
+                this.setMensaje("Direccion ya existe!");
             } else {
-                telDB.insertarTelfonosUsuario(tipoIdentificacionUsuario, identificacionUsuario, telefono, log);
-                this.setMensaje("Teléfono correctamente registrado!");
+                dirDB.InsertarDireccion(dir);
+                this.setMensaje("Direccion correctamente registrada!");
             }
-
+            
+/*
+     Direccion(this.identificacionUsuario, this.tipoIdentificacionUsuario, 
+                this.codProvincia, this.codCanton, this.codDistrito, this.codBarrio, this.otrasSenas, 
+                this.fechaRegistra,this.idRegistra, this.fechaEdita,this.idEdita,this.log);
+);
+        */
         }
 
     }

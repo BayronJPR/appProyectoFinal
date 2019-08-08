@@ -35,7 +35,7 @@ public class Direccion {
     int codCanton;
     int codDistrito;
     int codBarrio;
-    String dscBarrio;
+    //String dscBarrio;
     String otras;
     String fechaRegistra;
     int idRegistra;
@@ -43,7 +43,7 @@ public class Direccion {
     int idEdita;
     int log;
 
-    public Direccion(int idDireccion, int identificacionUsuario, int tipoIdentificacionUsuario, int codProvincia, int codCanton, int codDistrito, int codBarrio, String dscBarrio, String otras, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+    public Direccion(int idDireccion, int identificacionUsuario, int tipoIdentificacionUsuario, int codProvincia, int codCanton, int codDistrito, int codBarrio, String otras, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         
         this.setIdDireccion(idDireccion);
         this.setIdentificacionUsuario(identificacionUsuario);
@@ -52,7 +52,7 @@ public class Direccion {
         this.setCodCanton(codCanton);
         this.setCodDistrito(codDistrito);
         this.setCodBarrio(codBarrio);
-        this.setDscBarrio(dscBarrio);
+      
         this.setOtras(otras);
         this.setFechaRegistra(fechaRegistra);
         this.setIdRegistra(idRegistra);
@@ -61,14 +61,14 @@ public class Direccion {
         this.setLog(log);
     }
 
-    public Direccion(int identificacionUsuario, int tipoIdentificacionUsuario, int codProvincia, int codCanton, int codDistrito, int codBarrio, String dscBarrio, String otras, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+    public Direccion(int identificacionUsuario, int tipoIdentificacionUsuario, int codProvincia, int codCanton, int codDistrito, int codBarrio, String otras, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         this.setIdentificacionUsuario(identificacionUsuario);
         this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
         this.setCodProvincia(codProvincia);
         this.setCodCanton(codCanton);
         this.setCodDistrito(codDistrito);
         this.setCodBarrio(codBarrio);
-        this.setDscBarrio(dscBarrio);
+        
         this.setOtras(otras);
         this.setFechaRegistra(fechaRegistra);
         this.setIdRegistra(idRegistra);
@@ -137,14 +137,6 @@ public class Direccion {
 
     public void setCodBarrio(int codBarrio) {
         this.codBarrio = codBarrio;
-    }
-
-    public String getDscBarrio() {
-        return dscBarrio;
-    }
-
-    public void setDscBarrio(String dscBarrio) {
-        this.dscBarrio = dscBarrio;
     }
 
     public String getOtras() {
