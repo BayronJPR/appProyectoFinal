@@ -8,17 +8,13 @@ package Model;
 /**
  *
  * @author MrHaksh
- * 
-TelefonoUsuario(
-idTelefono int IDENTITY(1,1) not null,
-identificacionUsuario int not null,
-tipoIdentificacionUsuario int not null,
-telefono varchar(25) not null,
-LOG_ACTIVO bit
-);
+ *
+ * TelefonoUsuario( idTelefono int IDENTITY(1,1) not null, identificacionUsuario
+ * int not null, tipoIdentificacionUsuario int not null, telefono varchar(25)
+ * not null, LOG_ACTIVO bit );
  */
 public class TelefonoUsuario {
-    
+
     int idTelefono;
     int identificacionUsuario;
     int tipoIdentificacionUsuario;
@@ -26,8 +22,15 @@ public class TelefonoUsuario {
     int log;
 
     public TelefonoUsuario(int idTelefono, int identificacionUsuario, int tipoIdentificacionUsuario, String telefono, int log) {
-        
+
         this.setIdTelefono(idTelefono);
+        this.setIdentificacionUsuario(identificacionUsuario);
+        this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
+        this.setTelefono(telefono);
+        this.setLog(log);
+    }
+
+    public TelefonoUsuario(int identificacionUsuario, int tipoIdentificacionUsuario, String telefono, int log) {
         this.setIdentificacionUsuario(identificacionUsuario);
         this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
         this.setTelefono(telefono);
@@ -36,8 +39,6 @@ public class TelefonoUsuario {
 
     public TelefonoUsuario() {
     }
-    
-    
 
     public int getIdTelefono() {
         return idTelefono;
@@ -78,6 +79,5 @@ public class TelefonoUsuario {
     public void setLog(int log) {
         this.log = log;
     }
-    
-    
+
 }

@@ -69,7 +69,18 @@ public class beanRegistroInstructor implements Serializable {
     public void setBeanDireccion(beanDireccion beanDireccion) {
         this.beanDireccion = beanDireccion;
     }
+    
+    @ManagedProperty(value = "{beanTelefonoUsuario}")
+    private beanTelefonoUsuario beanTelefonoUsuario;
 
+    public beanTelefonoUsuario getBeanTelefonoUsuario() {
+        return beanTelefonoUsuario;
+    }
+
+    public void setBeanTelefonoUsuario(beanTelefonoUsuario beanTelefonoUsuario) {
+        this.beanTelefonoUsuario = beanTelefonoUsuario;
+    }  
+    
     public int getCodprovincia() {
         return codprovincia;
     }

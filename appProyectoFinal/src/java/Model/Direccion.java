@@ -61,6 +61,24 @@ public class Direccion {
         this.setLog(log);
     }
 
+    public Direccion(int identificacionUsuario, int tipoIdentificacionUsuario, int codProvincia, int codCanton, int codDistrito, int codBarrio, String dscBarrio, String otras, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+        this.setIdentificacionUsuario(identificacionUsuario);
+        this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
+        this.setCodProvincia(codProvincia);
+        this.setCodCanton(codCanton);
+        this.setCodDistrito(codDistrito);
+        this.setCodBarrio(codBarrio);
+        this.setDscBarrio(dscBarrio);
+        this.setOtras(otras);
+        this.setFechaRegistra(fechaRegistra);
+        this.setIdRegistra(idRegistra);
+        this.setFechaEdita(fechaEdita);
+        this.setIdEdita(idEdita);
+        this.setLog(log);
+    }
+    
+    
+
     public Direccion() {
     }
 

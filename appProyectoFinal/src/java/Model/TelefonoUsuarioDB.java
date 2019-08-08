@@ -47,17 +47,19 @@ public class TelefonoUsuarioDB {
             //se llama el array con los proyectos
             while (rsPA.next()) {
 
-                /*private String cedula;
-    private int numero_telefono;
-    private int cod_tip_telefono; //telefono en tbla tipo
-    private int log_activo;*/
-                String cedula = rsPA.getString("cedula");
-                int telefono = rsPA.getInt("numero_telefono");
-                int cod_tp = rsPA.getInt("cod_tip_telefono");
-                int logActivo = rsPA.getInt("log_activo");
+                /* int idTelefono;
+    int identificacionUsuario;
+    int tipoIdentificacionUsuario;
+    String telefono;
+    int log;*/
+                int idTelefono = rsPA.getInt("idTelefono");
+                int identificacionUsuario = rsPA.getInt("identificacionUsuario");
+                int tipoIdentificacionUsuario = rsPA.getInt("tipoIdentificacionUsuario");
+                String telefono = rsPA.getString("telefono");
+                int log = rsPA.getInt("LOG_ACTIVO");
 
                 //se construye el objeto.
-                TelefonoUsuario telef = new TelefonoUsuario(cedula, telefono, cod_tp, logActivo);
+                TelefonoUsuario telef = new TelefonoUsuario(idTelefono, identificacionUsuario, tipoIdentificacionUsuario, telefono, log);
 
                 listaTel.add(telef);
             }
@@ -74,7 +76,7 @@ public class TelefonoUsuarioDB {
         return listaTel;
     }
 
-    public boolean consultarTelefono(int numTelefono)
+    public boolean consultarTelefono(String numTelefono)
             throws SNMPExceptions, SQLException {
 
         boolean existe = false;
@@ -84,7 +86,7 @@ public class TelefonoUsuarioDB {
             AccesoDatos accesoDatos = new AccesoDatos();
 
             //Se crea la sentencia de Busqueda
-            select = "Select * from Telefono_Usuario where numero_telefono=" + numTelefono;
+            select = "Select * from TelefonoUsuario where telefono=" + numTelefono;
 
             //se ejecuta la sentencia sql
             ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
@@ -111,59 +113,57 @@ public class TelefonoUsuarioDB {
     //INGRESA LOS TIPOS DE TELEFONO A LA BD
 
     //insertar telefonos en la base de datos.
-    public void InsertarTelefono(TipoTelefono pTelefono)
-            throws SNMPExceptions, SQLException {
-        String strSQL = "";
-
-        try {
-            //Se obtienen los valores del objeto Departamento
-            TipoTelefono tel = new TipoTelefono();
-            tel = pTelefono;
-
-            /* [telefono]
-      ,[descripcion]
-      ,[log_activo]*/
-            strSQL
-                    = "INSERT INTO Telefono (,telefono, descripcion, log_activo) VALUES "
-                    + "(" + "'" + tel.getCod_Tipo_Telefono() + "'" + ","
-                    + "(" + "'" + tel.getDescripcion() + "'" + ","
-                    + "'" + tel.getLog_activo() + "'" + ")";
-
-            //Se ejecuta la sentencia SQL
-            accesoDatos.ejecutaSQL(strSQL);
-
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
-        } finally {
-
-        }
-    }
-
+//    public void InsertarTelefono(TipoTelefono pTelefono)
+//            throws SNMPExceptions, SQLException {
+//        String strSQL = "";
+//
+//        try {
+//            //Se obtienen los valores del objeto Departamento
+//            TipoTelefono tel = new TipoTelefono();
+//            tel = pTelefono;
+//
+//            /* [telefono]
+//      ,[descripcion]
+//      ,[log_activo]*/
+//            strSQL
+//                    = "INSERT INTO Telefono (,telefono, descripcion, log_activo) VALUES "
+//                    + "(" + "'" + tel.getCod_Tipo_Telefono() + "'" + ","
+//                    + "(" + "'" + tel.getDescripcion() + "'" + ","
+//                    + "'" + tel.getLog_activo() + "'" + ")";
+//
+//            //Se ejecuta la sentencia SQL
+//            accesoDatos.ejecutaSQL(strSQL);
+//
+//        } catch (SQLException e) {
+//            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+//        } catch (Exception e) {
+//            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+//        } finally {
+//
+//        }
+//    }
 //    Insertar el id del telefono y del usuario en la tabla
 //    TelefonoUsuario.
-    public void insertarTelfonosUsuario(String ced, int num_tel, int cod_tip_tel, int log)
+    public void insertarTelfonosUsuario(int identificacionUsuario, int tipoIdentidficacion, String numeroTelefono, int log)
             throws SNMPExceptions, SQLException {
         String strSQL = "";
 
         try {
 
-            String cedula = ced;
-            int num_t = num_tel;
-            int cod_tip_t = cod_tip_tel;
+            int identificacion = identificacionUsuario;
+            int tipoIdent = tipoIdentidficacion;
+            String numeroTele = numeroTelefono;
             int log_Ac = log;
 
-            /*([cedula]
-           ,[numero_telefono]
-           ,[cod_tipo_telefono]
-           ,[log_activo])
-
+            /*nt identificacionUsuario;
+    int tipoIdentificacionUsuario;
+    String telefono;
+    int log;
              */
-            strSQL = "insert into Telefono_Usuario (cudula, numero_telefono,cod_tipo_telefono, log_acivo) values"
-                    + "(" + "'" + cedula + "'" + ","
-                    + "'" + num_t + "'" + ","
-                    + "'" + cod_tip_t + "'" + ","
+            strSQL = "insert into TelefonoUsuario (identificacionUsuario, tipoIdentificacionUsuario, telefono, LOG_ACTIVO) values"
+                    + "(" + "'" + identificacion + "'" + ","
+                    + "'" + tipoIdent + "'" + ","
+                    + "'" + numeroTele + "'" + ","
                     + "'" + log_Ac + "'" + ")";
 
             //Se ejecuta la sentencia SQL
@@ -177,37 +177,6 @@ public class TelefonoUsuarioDB {
 
         }
 
-    }
-
-    public void InsertarTelefonoUsuario2(TelefonoUsuario TU)
-            throws SNMPExceptions, SQLException {
-        String strSQL = "";
-
-        try {
-            //Se obtienen los valores del objeto Departamento
-            TelefonoUsuario tel = new TelefonoUsuario();
-            tel = TU;
-
-            /* [telefono]
-      ,[descripcion]
-      ,[log_activo]*/
-            strSQL
-                    = "INSERT INTO Telefono_Usuario (cedula, numero_telefono, cod_tipo_telefono, log_activo) VALUES "
-                    + "(" + "'" + tel.getCedula() + "'" + ","
-                    + "(" + "'" + tel.getNumero_telefono() + "'" + ","
-                    + "(" + "'" + tel.getCod_tip_telefono() + "'" + ","
-                    + "'" + tel.getLog_activo() + "'" + ")";
-
-            //Se ejecuta la sentencia SQL
-            accesoDatos.ejecutaSQL(strSQL);
-
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
-        } finally {
-
-        }
     }
 
 }

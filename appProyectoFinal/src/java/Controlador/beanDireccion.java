@@ -22,7 +22,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-
+import Model.Direccion;
+import Model.DireccionDB;
 /**
  *
  * @author MrHaksh
@@ -376,6 +377,33 @@ public class beanDireccion implements Serializable {
     public void setListaBarrios(LinkedList<SelectItem> listaBarrios) {
         this.listaBarrios = listaBarrios;
     }
+    
+    
+    public void insertarTelefono() throws SNMPExceptions, SQLException {
+
+        Direccion dir = new Direccion(this.tipoIdentificacionUsuario, this.identificacionUsuario,
+                this.telefono, this.log);
+
+        TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+
+        if (this.telefono.equals("")) {
+
+            this.setMensaje("Campos Obligatorios!");
+
+        } else {
+
+            if (telDB.consultarTelefono(this.telefono) == true) {
+
+                this.setMensaje("Teléfono ya existe!");
+            } else {
+                telDB.insertarTelfonosUsuario(tipoIdentificacionUsuario, identificacionUsuario, telefono, log);
+                this.setMensaje("Teléfono correctamente registrado!");
+            }
+
+        }
+
+    }
+
 
     
     public void transferir(){

@@ -5,10 +5,66 @@
  */
 package Model;
 
+import DAO.AccesoDatos;
+import DAO.SNMPExceptions;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 /**
  *
  * @author MrHaksh
  */
 public class DireccionDB {
-    
+
+    private AccesoDatos accesoDatos = new AccesoDatos();
+    private Connection conn;
+
+    public DireccionDB(Connection conn) {
+        accesoDatos = new AccesoDatos();
+        accesoDatos.setDbConn(conn);
+    }
+
+    public DireccionDB() {
+
+    }
+
+    public void InsertarDireccion(Direccion direccion)
+            throws SNMPExceptions, SQLException {
+        String strSQL = "";
+
+        try {
+            //Se obtienen los valores del objeto Departamento
+            //DireccionFuncionario direc = new DireccionFuncionario();
+            Direccion direc = new Direccion();
+            direc = direccion;
+
+            strSQL
+                    = "INSERT INTO Direccion (identificacionUsuario, tipoIdentificacionUsuario,"
+                    + " COD_PROVINCIA,COD_CANTON,COD_DISTRITO, COD_BARRIO, Otras,FechaRegistra, IdRegistra,"
+                    + "FechaEdita,IdEdita, LOG_ACTIVO) VALUES "
+                    + "(" + "'" + direc.getIdentificacionUsuario() + "'" + ","
+                    + "'" + direc.getTipoIdentificacionUsuario() + "'" + ","
+                    + "'" + direc.getCodProvincia() + "'" + ","
+                    + "'" + direc.getCodCanton() + "'" + ","
+                    + "'" + direc.getCodDistrito() + "'" + ","
+                    + "'" + direc.getCodBarrio() + "'" + ","
+                    + "'" + direc.getOtras() + "'" + ","
+                    + "'" + direc.getFechaRegistra() + "'" + ","
+                    + "'" + direc.getIdRegistra() + "'" + ","
+                    + "'" + direc.getFechaEdita() + "'" + ","
+                    + "'" + direc.getIdEdita() + "'" + ","
+                    + "'" + direc.getLog() + "'" + ")";
+
+            //Se ejecuta la sentencia SQL
+            accesoDatos.ejecutaSQL(strSQL);
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+    }
+
 }
