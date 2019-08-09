@@ -31,47 +31,98 @@ public class TelefonoUsuarioDB {
     }
 
     //metodo que se trae toda la lista de Telefonos
-    public LinkedList<TelefonoUsuario> moTodo() throws SNMPExceptions, SQLException {
-        String select = "";
-        LinkedList<TelefonoUsuario> listaTel = new LinkedList<TelefonoUsuario>();
-
-        try {
+//    public LinkedList<TelefonoUsuario> moTodo() throws SNMPExceptions, SQLException {
+//        String select = "";
+//        LinkedList<TelefonoUsuario> listaTel = new LinkedList<TelefonoUsuario>();
+//
+//        try {
+//            //Se intancia la clase de acceso a datos
+//            AccesoDatos accesoDatos = new AccesoDatos();
+//
+//            //Se crea la sentencia de Busqueda
+//            select = "Select telefono, LOG_ACTIVO from TelefonoUsuario";
+//            
+//            /*
+//            TelefonoUsuario(
+//idTelefono int IDENTITY(1,1) not null,
+//identificacionUsuario int not null,
+//tipoIdentificacionUsuario int not null,
+//telefono varchar(25) not null,
+//LOG_ACTIVO bit
+//);
+//            */
+//            
+//            //se ejecuta la sentencia sql
+//            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+//            //se llama el array con los proyectos
+//            while (rsPA.next()) {
+//
+//          
+//                int idTelefono = rsPA.getInt("idTelefono");
+//                int identificacionUsuario = rsPA.getInt("identificacionUsuario");
+//                int tipoIdentificacionUsuario = rsPA.getInt("tipoIdentificacionUsuario");
+//                String telefono = rsPA.getString("telefono");
+//                int log = rsPA.getInt("LOG_ACTIVO");
+//
+//                //se construye el objeto.
+//                TelefonoUsuario telef = new TelefonoUsuario(idTelefono, identificacionUsuario, tipoIdentificacionUsuario, telefono, log);
+//
+//                listaTel.add(telef);
+//            }
+//            rsPA.close();//se cierra el ResultSeat.
+//
+//        } catch (SQLException e) {
+//            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+//                    e.getMessage(), e.getErrorCode());
+//        } catch (Exception e) {
+//            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+//        } finally {
+//
+//        }
+//        return listaTel;
+//    }
+    
+    public LinkedList<TelefonoUsuario> moTodo() throws SNMPExceptions, SQLException{
+        String select= "";
+        LinkedList<TelefonoUsuario> listaTel= new LinkedList<TelefonoUsuario>();
+        
+        try{
             //Se intancia la clase de acceso a datos
-            AccesoDatos accesoDatos = new AccesoDatos();
-
+            AccesoDatos accesoDatos= new AccesoDatos();
+            
             //Se crea la sentencia de Busqueda
-            select
-                    = "Select telefono,log_activo from TelefonoUsuario";
+            select=
+                    "Select idTelefono, identificacionUsuario, tipoIdentificacionUsuario, telefono, LOG_ACTIVO from TelefonoUsuario";
+            
+                  /* int idTelefono;
+//    int identificacionUsuario;
+//    int tipoIdentificacionUsuario;
+//    String telefono;
+//    int log;*/
+            
             //se ejecuta la sentencia sql
-            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            ResultSet rsPA= accesoDatos.ejecutaSQLRetornaRS(select);
             //se llama el array con los proyectos
-            while (rsPA.next()) {
-
-                /* int idTelefono;
-    int identificacionUsuario;
-    int tipoIdentificacionUsuario;
-    String telefono;
-    int log;*/
-                int idTelefono = rsPA.getInt("idTelefono");
-                int identificacionUsuario = rsPA.getInt("identificacionUsuario");
-                int tipoIdentificacionUsuario = rsPA.getInt("tipoIdentificacionUsuario");
+            while(rsPA.next()){
+                
+                
                 String telefono = rsPA.getString("telefono");
-                int log = rsPA.getInt("LOG_ACTIVO");
-
+                int logActivo= rsPA.getInt("LOG_ACTIVO");
+                
                 //se construye el objeto.
-                TelefonoUsuario telef = new TelefonoUsuario(idTelefono, identificacionUsuario, tipoIdentificacionUsuario, telefono, log);
-
+                TelefonoUsuario telef= new TelefonoUsuario(telefono,logActivo);
+                
                 listaTel.add(telef);
             }
             rsPA.close();//se cierra el ResultSeat.
-
-        } catch (SQLException e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
-                    e.getMessage(), e.getErrorCode());
-        } catch (Exception e) {
-            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
-        } finally {
-
+            
+        }catch(SQLException e){
+            throw new SNMPExceptions (SNMPExceptions.SQL_EXCEPTION,
+                                     e.getMessage(),e.getErrorCode());
+        }catch(Exception e){
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,e.getMessage());
+        }finally{
+            
         }
         return listaTel;
     }

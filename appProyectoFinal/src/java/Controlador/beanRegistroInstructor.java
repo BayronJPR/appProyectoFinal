@@ -7,6 +7,12 @@ package Controlador;
 
 import Model.Direccion;
 import Model.DireccionDB;
+import Model.DisciplinaUsuario;
+import Model.DisciplinaUsuarioDB;
+import Model.PerfilUsuario;
+import Model.PerfilUsuarioDB;
+import Model.Usuario;
+import Model.UsuarioDB;
 import DAO.SNMPExceptions;
 import Model.TelefonoUsuario;
 import Model.TelefonoUsuarioDB;
@@ -30,7 +36,6 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class beanRegistroInstructor implements Serializable {
 
-    
     private int cedula;
     private int tipoIdentificacion;
     private String nombre;
@@ -53,13 +58,19 @@ public class beanRegistroInstructor implements Serializable {
     private String otrasSenas;
     // disciplina deportiva
     private int disciplinaDeportiva;
+
+    String mensaje;
+    
+     private LinkedList<TelefonoUsuario> listaTelefnosUsuario= new LinkedList<TelefonoUsuario>();
+    
+
     /**
      * Creates a new instance of beanRegistroInstructor
      */
     public beanRegistroInstructor() {
     }
-    
-     @ManagedProperty(value = "{beanDirecciones}")
+
+    @ManagedProperty(value = "{beanDirecciones}")
     private beanDireccion beanDireccion;
 
     public beanDireccion getBeanDireccion() {
@@ -69,7 +80,7 @@ public class beanRegistroInstructor implements Serializable {
     public void setBeanDireccion(beanDireccion beanDireccion) {
         this.beanDireccion = beanDireccion;
     }
-    
+
     @ManagedProperty(value = "{beanTelefonoUsuario}")
     private beanTelefonoUsuario beanTelefonoUsuario;
 
@@ -79,8 +90,8 @@ public class beanRegistroInstructor implements Serializable {
 
     public void setBeanTelefonoUsuario(beanTelefonoUsuario beanTelefonoUsuario) {
         this.beanTelefonoUsuario = beanTelefonoUsuario;
-    }  
-    
+    }
+
     public int getCodprovincia() {
         return codprovincia;
     }
@@ -231,5 +242,99 @@ public class beanRegistroInstructor implements Serializable {
 
     public void setDisciplinaDeportiva(int disciplinaDeportiva) {
         this.disciplinaDeportiva = disciplinaDeportiva;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public LinkedList<TelefonoUsuario> getListaTelefnosUsuario() {
+        return listaTelefnosUsuario;
+    }
+
+    public void setListaTelefnosUsuario(LinkedList<TelefonoUsuario> listaTelefnosUsuario) {
+        this.listaTelefnosUsuario = listaTelefnosUsuario;
+    }   
+    
+    
+    
+     //Agrega los telefonos en la lista y los
+    //muestra en la tabla.
+    public void agregarTelefonos(){
+        
+        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
+        
+        this.listaTelefnosUsuario.add(tel);
+    }
+    
+    //Limpia la lista de los telefonos
+    public void limpiarListaTelefonos(){
+        this.listaTelefnosUsuario=null;
+    }
+
+    public void guardarUsuario() throws SNMPExceptions, SQLException {
+
+        try {
+            //this.fechaStringDate();
+
+            //fecha para bitacora
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+            String fechaRegis = sdf.format(fechaRegistra);
+            String fechaEdt = sdf.format(FechaEdita);
+
+            if (this.nombre.equals("") || this.apellido1.equals("")
+                    || this.apellido2.equals("") || this.getCorreoElectronico().equals("")) {
+
+                this.setMensaje("Introduzca los Datos Correctamente!");
+
+            } else {
+
+                Usuario usuario = new Usuario(this.cedula, this.tipoIdentificacion,
+                        this.nombre, this.apellido1, this.apellido2, this.correoElectronico, this.fechaRegistra,
+                        this.IdRegistra, this.FechaEdita, this.IdEdita, this.LOG_ACVIVO);
+
+                UsuarioDB usuarioDB = new UsuarioDB();
+                usuarioDB.InsertarUsuario(usuario);
+
+                /*insert en tabla perfilUsuario
+        todos los de autoregistros van con como instructores
+        los de registro desde la db se insertan*/
+                int codPerfil = 2;
+                PerfilUsuarioDB pUsu = new PerfilUsuarioDB();
+                pUsu.insertarPerfilUsuario(this.cedula, this.tipoIdentificacion, codPerfil);
+
+                int log = 1;
+                Direccion direccion = new Direccion(this.cedula, this.tipoIdentificacion, this.codprovincia, this.codcanton,
+                        this.coddistrito, this.codbarrio, this.otrasSenas, this.fechaRegistra, this.IdRegistra, this.FechaEdita,
+                        this.IdEdita, log);
+
+                DireccionDB dirDB = new DireccionDB();
+                dirDB.InsertarDireccion(direccion);
+
+                /*insertar en tabla telefono*/
+                for (TelefonoUsuario tel : this.listaTelefnosUsuario) {
+                //código para acceder a cada campo del Item.
+               // TelefonoUsuario tel = new TelefonoUsuario(this.cedula, this.tipoIdentificacion, this.numeroTelefono, log);
+                TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+                telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.numeroTelefono, log);
+                }
+                DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
+
+                // this.enviarEmail();
+                //redirigir a la pagina de Comprobacion
+                FacesContext.getCurrentInstance().getExternalContext().redirect("Ingreso.xhtml");
+
+            }//fin del if de validacion
+
+        } catch (Exception e) {
+            // TODO: Add catch code
+            e.printStackTrace();
+            this.setMensaje("El Usuario ya se Encuentran Registrados!");
+        }
+
     }
 }

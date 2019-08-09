@@ -37,6 +37,13 @@ public class TelefonoUsuario {
         this.setLog(log);
     }
 
+    public TelefonoUsuario(String telefono, int log) {
+        this.telefono = telefono;
+        this.log = log;
+    }
+    
+    
+
     public TelefonoUsuario() {
     }
 

@@ -116,32 +116,27 @@
                         <td> 
                             <table>
                                 <tr>
-                                    <td><!--
-                                        <h:dataTable class="tablaTel" value="" var="per">
+                                    <td>
+                                        <h:dataTable class="tablaTel" value="#{beanRegistroInstructor.listaTelefnosUsuario}" var="per">
                                             <h:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Número"></h:outputText>
                                                 </f:facet>
-                                                <h:outputText value="#{per.numero_telefono}"></h:outputText>
+                                                <h:outputText value="#{per.telefono}"></h:outputText>
                                             </h:column>
-                                        </h:dataTable>   
-                                        -->
+                                        </h:dataTable>                                           
                                     </td>
 
-                                    <td align="right"><!--
+                                    <td align="right">
                                         <h:inputText value="#{beanRegistroInstructor.numeroTelefono}" style="width: 50%" maxlength="8"></h:inputText>
-
-                                        <h:selectOneMenu label="Tipo Telefono" 
-                                                         onchange="submit()" value="#{beanTelefono.telefono}">
-                                            <f:selectItems value="#{beanTelefono.listaTipoTelefono}"></f:selectItems>
-                                        </h:selectOneMenu>
+                                   
 
                                         <h:outputText value="" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
                                         <h:commandButton actionListener="}" value="Agregar Teléfono" 
                                                          style="width: 40%;height: 25px;margin-left: 10px"></h:commandButton> 
-                                        <h:commandButton value="Limpiar" actionListener=""
+                                        <h:commandButton value="Limpiar" actionListener="#{beanRegistroInstructor.agregarTelefonos()}"
                                                          style="width: 40%;height: 25px;margin-left: 260px"></h:commandButton>
-                                        --></td>                                                                     
+                                    </td>                                                                     
                                 </tr>
 
                             </table>
@@ -163,7 +158,7 @@
                         </td>
                     </tr>   
                 </table>
-                <h:commandButton  class="botones" actionListener="#{beanAutoregistro.guardarUsuario()}" value="Registrar"></h:commandButton>
+                <h:commandButton  class="botones" actionListener="#{beanRegistroInstructor.guardarUsuario()}" value="Registrar"></h:commandButton>
                 <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 
             </h:form>
         </div>
