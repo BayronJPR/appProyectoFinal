@@ -60,9 +60,9 @@ public class beanRegistroInstructor implements Serializable {
     private int disciplinaDeportiva;
 
     String mensaje;
-    
-     private LinkedList<TelefonoUsuario> listaTelefnosUsuario= new LinkedList<TelefonoUsuario>();
-    
+    private String mensajeTel;
+
+    private LinkedList<TelefonoUsuario> listaTelefnosUsuario = new LinkedList<TelefonoUsuario>();
 
     /**
      * Creates a new instance of beanRegistroInstructor
@@ -252,28 +252,62 @@ public class beanRegistroInstructor implements Serializable {
         this.mensaje = mensaje;
     }
 
+    public String getMensajeTel() {
+        return mensajeTel;
+    }
+
+    public void setMensajeTel(String mensajeTel) {
+        this.mensajeTel = mensajeTel;
+    }
+
     public LinkedList<TelefonoUsuario> getListaTelefnosUsuario() {
         return listaTelefnosUsuario;
     }
 
     public void setListaTelefnosUsuario(LinkedList<TelefonoUsuario> listaTelefnosUsuario) {
         this.listaTelefnosUsuario = listaTelefnosUsuario;
-    }   
-    
-    
-    
-     //Agrega los telefonos en la lista y los
-    //muestra en la tabla.
-    public void agregarTelefonos(){
-        
-        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
-        
-        this.listaTelefnosUsuario.add(tel);
     }
-    
+
+    //Agrega los telefonos en la lista y los
+    //muestra en la tabla.
+    public void agregarTelefonos() {
+
+//        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
+//        
+//        this.listaTelefnosUsuario.add(tel);
+        TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+        try {
+
+            if (telDB.consultarTelefono(numeroTelefono) == true) {
+
+                this.setMensajeTel("Teléfono ya Registrado!");
+
+            } else {
+                TelefonoUsuario tel = new TelefonoUsuario(this.getIdTelefono(), this.getTipoIdentificacion(), this.getNumeroTelefono(), 1);
+                //si la lista esta vacia agrega el telefono
+                if (listaTelefnosUsuario.size() == 0) {
+                    listaTelefnosUsuario.add(tel);
+                } else {
+                    //Si ya tiene elementos la compara con el numero que viene 
+                    //y si no son iguales lo mete en la lista.
+                    for (int i = 0; i < listaTelefnosUsuario.size(); i++) {
+                        if (listaTelefnosUsuario.get(i).getTelefono() != this.getNumeroTelefono()) {
+                            listaTelefnosUsuario.add(tel);
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
     //Limpia la lista de los telefonos
-    public void limpiarListaTelefonos(){
-        this.listaTelefnosUsuario=null;
+    public void limpiarListaTelefonos() {
+        this.listaTelefnosUsuario = null;
     }
 
     public void guardarUsuario() throws SNMPExceptions, SQLException {
@@ -317,10 +351,10 @@ public class beanRegistroInstructor implements Serializable {
 
                 /*insertar en tabla telefono*/
                 for (TelefonoUsuario tel : this.listaTelefnosUsuario) {
-                //código para acceder a cada campo del Item.
-               // TelefonoUsuario tel = new TelefonoUsuario(this.cedula, this.tipoIdentificacion, this.numeroTelefono, log);
-                TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
-                telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.numeroTelefono, log);
+                    //código para acceder a cada campo del Item.
+                    // TelefonoUsuario tel = new TelefonoUsuario(this.cedula, this.tipoIdentificacion, this.numeroTelefono, log);
+                    TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+                    telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.numeroTelefono, log);
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
 
