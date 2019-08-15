@@ -134,7 +134,7 @@
                                         <h:outputText value="" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
                                         <h:commandButton actionListener="#{beanRegistroInstructor.agregarTelefonos()}" value="Agregar Teléfono" 
                                                          style="width: 40%;height: 25px;margin-left: 10px"></h:commandButton> 
-                                        <h:commandButton value="Limpiar" actionListener="#{beanRegistroInstructor.agregarTelefonos()}"
+                                        <h:commandButton value="Limpiar" actionListener="#{beanRegistroInstructor.limpiarListaTelefonos()}"
                                                          style="width: 40%;height: 25px;margin-left: 260px"></h:commandButton>
                                     </td>                                                                     
                                 </tr>
@@ -160,6 +160,10 @@
                 </table>
                 <h:commandButton  class="botones" actionListener="#{beanRegistroInstructor.guardarUsuario()}" value="Registrar"></h:commandButton>
                 <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 
+                <br></br>
+                <br></br>
+                <br></br>
+                <h:outputText style="color: red" value="#{beanRegistroInstructor.mensaje}"></h:outputText>
             </h:form>
         </div>
     </h:body>

@@ -38,7 +38,7 @@ public class UsuarioDB {
             usu = usuario;
 
             strSQL
-                    = "INSERT INTO Direccion (identificacion, tipoIdentificacion,"
+                    = "INSERT INTO Usuario (identificacion, tipoIdentificacion,"
                     + " nombre,apellido1,apellido2, correoElectronico, FechaRegistra,IdRegistra, FechaEdita,"
                     + "IdEdita,LOG_ACTIVO) VALUES "
                     + "(" + "'" + usu.getIdentificacion() + "'" + ","
@@ -47,9 +47,9 @@ public class UsuarioDB {
                     + "'" + usu.getApellido1() + "'" + ","
                     + "'" + usu.getApellido2() + "'" + ","
                     + "'" + usu.getCorreoElectronico() + "'" + ","
-                    + "'" + usu.getFechaRegistra() + "'" + ","
+                    + "Getdate()"+ ","
                     + "'" + usu.getIdRegistra() + "'" + ","
-                    + "'" + usu.getFechaEdita() + "'" + ","
+                    + "Getdate()"+ ","
                     + "'" + usu.getIdEdita() + "'" + ","
                     + "'" + usu.getLog() + "'" + ")";
 

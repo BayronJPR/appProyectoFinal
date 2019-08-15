@@ -5,36 +5,30 @@
  */
 package Controlador;
 
+import DAO.SNMPExceptions;
 import Model.Direccion;
 import Model.DireccionDB;
 import Model.DisciplinaUsuario;
-import Model.DisciplinaUsuarioDB;
-import Model.PerfilUsuario;
 import Model.PerfilUsuarioDB;
-import Model.Usuario;
-import Model.UsuarioDB;
-import DAO.SNMPExceptions;
 import Model.TelefonoUsuario;
 import Model.TelefonoUsuarioDB;
+import Model.Usuario;
+import Model.UsuarioDB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 /**
  *
- * @author MrHaksh
+ * @author luubs
  */
-@Named(value = "beanRegistroInstructor")
+@Named(value = "beanAutoRegistroDeportista")
 @SessionScoped
-public class beanRegistroInstructor implements Serializable {
+public class beanAutoRegistroDeportista implements Serializable {
 
     private int cedula;
     private int tipoIdentificacion;
@@ -59,18 +53,21 @@ public class beanRegistroInstructor implements Serializable {
     // disciplina deportiva
     private int disciplinaDeportiva;
 
+    private int peso;
+    private int talla;
+    private int altura;
+    private double IMC;
+    private String gradoObesidad;
+
     String mensaje;
     private String mensajeTel;
 
     private LinkedList<TelefonoUsuario> listaTelefnosUsuario = new LinkedList<TelefonoUsuario>();
 
-    /**
-     * Creates a new instance of beanRegistroInstructor
-     */
-    public beanRegistroInstructor() {
+    public beanAutoRegistroDeportista() {
     }
 
-    @ManagedProperty(value = "{beanDireccion}")
+//    @ManagedProperty(value = "{beanDireccion}")
     private beanDireccion beanDireccion;
 
     public beanDireccion getBeanDireccion() {
@@ -79,57 +76,6 @@ public class beanRegistroInstructor implements Serializable {
 
     public void setBeanDireccion(beanDireccion beanDireccion) {
         this.beanDireccion = beanDireccion;
-    }
-
-    @ManagedProperty(value = "{beanTelefonoUsuario}")
-    private beanTelefonoUsuario beanTelefonoUsuario;
-
-    public beanTelefonoUsuario getBeanTelefonoUsuario() {
-        return beanTelefonoUsuario;
-    }
-
-    public void setBeanTelefonoUsuario(beanTelefonoUsuario beanTelefonoUsuario) {
-        this.beanTelefonoUsuario = beanTelefonoUsuario;
-    }
-
-    public int getCodprovincia() {
-        return codprovincia;
-    }
-
-    public void setCodprovincia(int codprovincia) {
-        this.codprovincia = codprovincia;
-    }
-
-    public int getCodcanton() {
-        return codcanton;
-    }
-
-    public void setCodcanton(int codcanton) {
-        this.codcanton = codcanton;
-    }
-
-    public int getCoddistrito() {
-        return coddistrito;
-    }
-
-    public void setCoddistrito(int coddistrito) {
-        this.coddistrito = coddistrito;
-    }
-
-    public int getCodbarrio() {
-        return codbarrio;
-    }
-
-    public void setCodbarrio(int codbarrio) {
-        this.codbarrio = codbarrio;
-    }
-
-    public String getOtrasSenas() {
-        return otrasSenas;
-    }
-
-    public void setOtrasSenas(String otrasSenas) {
-        this.otrasSenas = otrasSenas;
     }
 
     public int getCedula() {
@@ -236,12 +182,92 @@ public class beanRegistroInstructor implements Serializable {
         this.numeroTelefono = numeroTelefono;
     }
 
+    public int getCodprovincia() {
+        return codprovincia;
+    }
+
+    public void setCodprovincia(int codprovincia) {
+        this.codprovincia = codprovincia;
+    }
+
+    public int getCodcanton() {
+        return codcanton;
+    }
+
+    public void setCodcanton(int codcanton) {
+        this.codcanton = codcanton;
+    }
+
+    public int getCoddistrito() {
+        return coddistrito;
+    }
+
+    public void setCoddistrito(int coddistrito) {
+        this.coddistrito = coddistrito;
+    }
+
+    public int getCodbarrio() {
+        return codbarrio;
+    }
+
+    public void setCodbarrio(int codbarrio) {
+        this.codbarrio = codbarrio;
+    }
+
+    public String getOtrasSenas() {
+        return otrasSenas;
+    }
+
+    public void setOtrasSenas(String otrasSenas) {
+        this.otrasSenas = otrasSenas;
+    }
+
     public int getDisciplinaDeportiva() {
         return disciplinaDeportiva;
     }
 
     public void setDisciplinaDeportiva(int disciplinaDeportiva) {
         this.disciplinaDeportiva = disciplinaDeportiva;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public int getTalla() {
+        return talla;
+    }
+
+    public void setTalla(int talla) {
+        this.talla = talla;
+    }
+
+    public int getAltura() {
+        return altura;
+    }
+
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    public double getIMC() {
+        return IMC;
+    }
+
+    public void setIMC(double IMC) {
+        this.IMC = IMC;
+    }
+
+    public String getGradoObesidad() {
+        return gradoObesidad;
+    }
+
+    public void setGradoObesidad(String gradoObesidad) {
+        this.gradoObesidad = gradoObesidad;
     }
 
     public String getMensaje() {
@@ -268,51 +294,62 @@ public class beanRegistroInstructor implements Serializable {
         this.listaTelefnosUsuario = listaTelefnosUsuario;
     }
 
-    //Agrega los telefonos en la lista y los
-    //muestra en la tabla.
-    public void agregarTelefonos() {
-
-//        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
-//        
-//        this.listaTelefnosUsuario.add(tel);
-        TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
-        try {
-
-            if (telDB.consultarTelefono(numeroTelefono) == true) {
-
-                this.setMensajeTel("Teléfono ya Registrado!");
-
-            } else {
-                TelefonoUsuario tel = new TelefonoUsuario(this.getIdTelefono(), this.getTipoIdentificacion(), this.getNumeroTelefono(), 1);
-                //si la lista esta vacia agrega el telefono
-                if (listaTelefnosUsuario.size() == 0) {
-                    listaTelefnosUsuario.add(tel);
-                } else {
-                    //Si ya tiene elementos la compara con el numero que viene 
-                    //y si no son iguales lo mete en la lista.
-                    for (int i = 0; i < listaTelefnosUsuario.size(); i++) {
-                        if (listaTelefnosUsuario.get(i).getTelefono() != this.getNumeroTelefono()) {
-                            listaTelefnosUsuario.add(tel);
-                            break;
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-
-        }
-
-    }
-
-    //Limpia la lista de los telefonos
     public void limpiarListaTelefonos() {
         this.listaTelefnosUsuario = null;
-        
-        
-    }
 
-    public void guardarUsuario() throws SNMPExceptions, SQLException {
+    }
+    
+    
+        public double calcularIMC() {
+        //this.setIMC(this.getPeso() / (this.getTalla() * this.getTalla()));
+        this.IMC += this.peso / (this.talla * this.talla);
+        return this.IMC;
+        }
+    
+
+    public void calcularGradoObesidad() {
+
+        calcularIMC();
+
+        if (this.IMC < 16.00) {
+            this.gradoObesidad = "Infrapeso: Delgadez Severa";
+        } else if (this.getIMC() <= 16.00 || this.getIMC() <= 16.99) {
+            this.gradoObesidad = "Infrapeso: Delgadez moderada";
+        } else if (this.getIMC() <= 17.00 || this.getIMC() <= 18.49) {
+            this.gradoObesidad = "Infrapeso: Delgadez aceptable";
+        } else if (this.getIMC() <= 18.50 || this.getIMC() <= 24.99) {
+            this.gradoObesidad = "Peso Normal";
+        } else if (this.getIMC() <= 25.00 || this.getIMC() <= 29.99) {
+            this.gradoObesidad = "Sobrepeso";
+        } else if (this.getIMC() <= 30.00 || this.getIMC() <= 34.99) {
+            this.gradoObesidad = "Obeso: Tipo I";
+        } else if (this.getIMC() <= 35.00 || this.getIMC() <= 40.00) {
+            this.gradoObesidad = "Obeso: Tipo III";
+        } else {
+            this.gradoObesidad = "no existe clasificacion";
+        }
+        
+//        if (this.IMC < 16.00) {
+//            this.gradoObesidad = "Infrapeso: Delgadez Severa";
+//        } else if (this.getIMC() <= 16.00 || this.getIMC() <= 16.99) {
+//            this.gradoObesidad = "Infrapeso: Delgadez moderada";
+//        } else if (this.getIMC() <= 17.00 || this.getIMC() <= 18.49) {
+//            this.gradoObesidad = "Infrapeso: Delgadez aceptable";
+//        } else if (this.getIMC() <= 18.50 || this.getIMC() <= 24.99) {
+//            this.gradoObesidad = "Peso Normal";
+//        } else if (this.getIMC() <= 25.00 || this.getIMC() <= 29.99) {
+//            this.gradoObesidad = "Sobrepeso";
+//        } else if (this.getIMC() <= 30.00 || this.getIMC() <= 34.99) {
+//            this.gradoObesidad = "Obeso: Tipo I";
+//        } else if (this.getIMC() <= 35.00 || this.getIMC() <= 40.00) {
+//            this.gradoObesidad = "Obeso: Tipo III";
+//        } else {
+//            this.gradoObesidad = "no existe clasificacion";
+//        }
+    }
+    
+
+    public void guardarDerportista() throws SNMPExceptions, SQLException {
 
         try {
             //this.fechaStringDate();
@@ -321,7 +358,6 @@ public class beanRegistroInstructor implements Serializable {
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 //            String fechaRegis = sdf.format(fechaRegistra);
 //            String fechaEdt = sdf.format(FechaEdita);
-
             if (this.nombre.equals("") || this.apellido1.equals("")
                     || this.apellido2.equals("") || this.getCorreoElectronico().equals("")) {
 

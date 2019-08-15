@@ -34,7 +34,7 @@
                         <td>Tipo de Identificación</td>
                         <td>
                             <h:selectOneMenu label="Identificacion" 
-                                             onchange="submit()" value="#{beanAutoregistro}">
+                                             onchange="submit()" value="#{beanAutoRegistroDeportista.tipoIdentificacion}">
                                 <f:selectItems value="#{beanTipoIdentificacion.listaTipoIdent}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
@@ -42,30 +42,23 @@
 
                     <tr>
                         <td>Número de Identificación</td>
-                        <td><h:inputText value="#{beanAutoregistro.numIdentificacion}"></h:inputText></td>
+                        <td><h:inputText value="#{beanAutoRegistroDeportista.cedula}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Nombre</td>
-                        <td><h:inputText value="#{beanAutoregistro.nombre}"></h:inputText></td>
+                        <td><h:inputText value="#{beanAutoRegistroDeportista.nombre}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Primer Apellido</td>
-                        <td><h:inputText value="#{beanAutoregistro.primerApellido}"></h:inputText></td>
+                        <td><h:inputText value="#{beanAutoRegistroDeportista.apellido1}"></h:inputText></td>
                     </tr>
 
                     <tr>
                         <td>Segundo Apellido</td>
-                        <td><h:inputText value="#{beanAutoregistro.segApellido}"></h:inputText></td>
+                        <td><h:inputText value="#{beanAutoRegistroDeportista.apellido2}"></h:inputText></td>
                     </tr>
-
-                    <tr>
-                        <td>Fecha Nacimiento</td>
-                        <td><h:inputText t:type="date" value="#{beanAutoregistro.fechaNacPicker}"></h:inputText></td>
-
-                    </tr>
-
                     <tr>
 
                         <td>Dirección </td>
@@ -117,14 +110,13 @@
                         </td>
 
                     </tr>
-
                     <tr>
                         <td>Teléfono</td>
                         <td> 
                             <table>
                                 <tr>
                                     <td>
-                                        <h:dataTable class="tablaTel" value="#{beanAutoregistro.listaTelefonosUsuario}" var="per">
+                                        <h:dataTable class="tablaTel" value="#{beanAutoRegistroDeportista.listaTelefnosUsuario}" var="per">
                                             <h:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Número"></h:outputText>
@@ -135,19 +127,15 @@
                                     </td>
 
                                     <td align="right">
-                                        <h:inputText value="#{beanAutoregistro.numTelefono}" style="width: 50%" maxlength="8"></h:inputText>
+                                        <h:inputText value="#{beanAutoRegistroDeportista.numeroTelefono}" style="width: 50%" maxlength="8"></h:inputText>
 
-                                        <h:selectOneMenu label="Tipo Telefono" 
-                                                         onchange="submit()" value="#{beanTelefono.telefono}">
-                                            <f:selectItems value="#{beanTelefono.listaTipoTelefono}"></f:selectItems>
-                                        </h:selectOneMenu>
 
-                                        <h:outputText value="#{beanAutoregistro.mensajeTel}" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
-                                        <h:commandButton actionListener="#{beanAutoregistro.agregarTelefonos()}" value="Agregar Teléfono" 
+                                        <h:outputText value="" style="color: red; font-size: 12px; margin-left: 10px"></h:outputText>
+                                        <h:commandButton actionListener="#{beanAutoRegistroDeportista.agregarTelefonos()}" value="Agregar Teléfono" 
                                                          style="width: 40%;height: 25px;margin-left: 10px"></h:commandButton> 
-                                        <h:commandButton value="Limpiar" actionListener="#{beanAutoregistro.limpiarListaTelefonos()}"
+                                        <h:commandButton value="Limpiar" actionListener="#{beanAutoRegistroDeportista.limpiarListaTelefonos()}"
                                                          style="width: 40%;height: 25px;margin-left: 260px"></h:commandButton>
-                                    </td>                                                                     
+                                    </td>                                                                      
                                 </tr>
 
                             </table>
@@ -156,41 +144,42 @@
 
                     <tr>
                         <td>Correo Electrónico</td>
-                        <td><h:inputText value="#{beanAutoregistro.correoElect}"></h:inputText></td>
+                        <td><h:inputText value="#{beanAutoRegistroDeportista.correoElectronico}"></h:inputText></td>
                     </tr>  
                     <tr>
-                        <td>Disciplina deportiva</td>
+                        <td>Disciplina Deportiva que entrena</td>
                         <td>
 
-                            <h:selectOneMenu label="" 
-                                             onchange="submit()" value="#{beanProgramaDeas.codigo}">
+                            <h:selectOneMenu label="Disciplina" 
+                                             onchange="submit()" value="#{beanAutoRegistroDeportista.disciplinaDeportiva}">
                                 <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinas}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
                     </tr>   
                     <tr>
                         <td>Peso
-                            <h:inputText value="#{beanAutoregistro.peso}"></h:inputText></td>
+                            <h:inputText value="#{beanAutoRegistroDeportista.peso}"></h:inputText></td>
                         <td>Talla
-                            <h:inputText value="#{beanAutoregistro.talla}"></h:inputText>
+                            <h:inputText value="#{beanAutoRegistroDeportista.talla}"></h:inputText>
                             Altura
-                            <h:inputText value="#{beanAutoregistro.altura}"></h:inputText>
-                            <h:commandButton  class="botones" actionListener="#{beanAutoregistro.calcularIMC()}" value="Calcular"></h:commandButton>
+                            <h:inputText value="#{beanAutoRegistroDeportista.altura}"></h:inputText>
+                            <h:commandButton  class="botones" actionListener="#{beanAutoRegistroDeportista.calcularGradoObesidad()}" value="Calcular"></h:commandButton>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             IMC:
-                            <h:inputText value="#{beanAutoregistro.IMC}"></h:inputText></td>
+                            <h:inputText value="#{beanAutoRegistroDeportista.IMC}"></h:inputText></td>
                         <td>
                             Grado Obesidad:
-                            <h:inputText value="#{beanAutoregistro.gradoObesidad}"></h:inputText></td>
+                            <h:inputText value="#{beanAutoRegistroDeportista.gradoObesidad}"></h:inputText></td>
                     </tr>
                 </table>
-                <h:commandButton  class="botones" actionListener="#{beanAutoregistro.guardarUsuario()}" value="Registrar"></h:commandButton>
+                <h:commandButton  class="botones" actionListener="#{beanAutoRegistroDeportista.guardarDerportista()}" value="Registrar"></h:commandButton>
                 <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 
             </h:form>
         </div>
+        <h:outputText style="color: red" value="#{beanRegistroInstructor.mensaje}"></h:outputText>
     </h:body>
 </html>
 

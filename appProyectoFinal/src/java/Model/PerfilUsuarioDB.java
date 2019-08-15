@@ -39,7 +39,7 @@ public class PerfilUsuarioDB {
             int tipoIdent = tipoIdentidficacion;
             int perfil = idPerfil;
 
-            strSQL = "insert into DisciplinaUsuario (identificacionUsuario, tipoIdentificacionUsuario, idPerfil) values"
+            strSQL = "insert into PerfilUsuario (identificacionUsuario, tipoIdentificacionUsuario, idPerfil) values"
                     + "(" + "'" + identificacion + "'" + ","
                     + "'" + tipoIdent + "'" + ","
                     + "'" + perfil + "'" + ")";

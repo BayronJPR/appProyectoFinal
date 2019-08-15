@@ -6,7 +6,7 @@
 package Model;
 
 /**
-AutoRegistroCliente(
+AutoRegistroDeportista(
 idAutoRegistro int IDENTITY(1,1) not null,
 identificacionUsuario int not null,
 tipoIdentificacionUsuario int not null,
@@ -23,7 +23,7 @@ LOG_ACTIVO bit
  * 
  * @author MrHaksh
  */
-public class AutoRegistroCliente {
+public class AutoRegistroDeportista {
     
     int idAutoRegistro;
     int identificacionUsuario;
@@ -32,13 +32,14 @@ public class AutoRegistroCliente {
     int talla;
     int altura;
     int IMC;
+    String gradoObesidad;
     String fechaRegistra;
     int idRegistra;
     String fechaEdita;
     int idEdita;
     int log;
 
-    public AutoRegistroCliente(int idAutoRegistro, int identificacionUsuario, int tipoIdentificacionUsuario, int peso, int talla, int altura, int IMC, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+    public AutoRegistroDeportista(int idAutoRegistro, int identificacionUsuario, int tipoIdentificacionUsuario, int peso, int talla, int altura, int IMC, String gradoObesidad, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         
         this.setIdAutoRegistro(idAutoRegistro);
         this.setIdentificacionUsuario(identificacionUsuario);
@@ -47,6 +48,7 @@ public class AutoRegistroCliente {
         this.setTalla(talla);
         this.setAltura(altura);
         this.setIMC(IMC);
+        this.setGradoObesidad(gradoObesidad);
         this.setFechaRegistra(fechaRegistra);
         this.setIdRegistra(idRegistra);
         this.setFechaEdita(fechaEdita);
@@ -54,9 +56,17 @@ public class AutoRegistroCliente {
         this.setLog(log);
     }
 
-    public AutoRegistroCliente() {
+    public AutoRegistroDeportista() {
     }
 
+    public String getGradoObesidad() {
+        return gradoObesidad;
+    }
+
+    public void setGradoObesidad(String gradoObesidad) {
+        this.gradoObesidad = gradoObesidad;
+    }
+    
     public int getIdAutoRegistro() {
         return idAutoRegistro;
     }
