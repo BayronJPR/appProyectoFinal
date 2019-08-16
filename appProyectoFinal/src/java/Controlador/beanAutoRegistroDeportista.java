@@ -53,10 +53,10 @@ public class beanAutoRegistroDeportista implements Serializable {
     // disciplina deportiva
     private int disciplinaDeportiva;
 
-    private int peso;
-    private int talla;
-    private int altura;
-    private double IMC;
+    private float peso;
+    private float talla;
+    private float altura;
+    private float IMC;
     private String gradoObesidad;
 
     String mensaje;
@@ -230,35 +230,35 @@ public class beanAutoRegistroDeportista implements Serializable {
         this.disciplinaDeportiva = disciplinaDeportiva;
     }
 
-    public int getPeso() {
+    public float getPeso() {
         return peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(float peso) {
         this.peso = peso;
     }
 
-    public int getTalla() {
+    public float getTalla() {
         return talla;
     }
 
-    public void setTalla(int talla) {
+    public void setTalla(float talla) {
         this.talla = talla;
     }
 
-    public int getAltura() {
+    public float getAltura() {
         return altura;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(float altura) {
         this.altura = altura;
     }
 
-    public double getIMC() {
+    public float getIMC() {
         return IMC;
     }
 
-    public void setIMC(double IMC) {
+    public void setIMC(float IMC) {
         this.IMC = IMC;
     }
 
@@ -298,56 +298,36 @@ public class beanAutoRegistroDeportista implements Serializable {
         this.listaTelefnosUsuario = null;
 
     }
-    
-    
-        public double calcularIMC() {
-        //this.setIMC(this.getPeso() / (this.getTalla() * this.getTalla()));
-        this.IMC += this.peso / (this.talla * this.talla);
-        return this.IMC;
-        }
-    
 
     public void calcularGradoObesidad() {
 
         calcularIMC();
 
-        if (this.IMC < 16.00) {
-            this.gradoObesidad = "Infrapeso: Delgadez Severa";
-        } else if (this.getIMC() <= 16.00 || this.getIMC() <= 16.99) {
-            this.gradoObesidad = "Infrapeso: Delgadez moderada";
-        } else if (this.getIMC() <= 17.00 || this.getIMC() <= 18.49) {
-            this.gradoObesidad = "Infrapeso: Delgadez aceptable";
-        } else if (this.getIMC() <= 18.50 || this.getIMC() <= 24.99) {
-            this.gradoObesidad = "Peso Normal";
-        } else if (this.getIMC() <= 25.00 || this.getIMC() <= 29.99) {
-            this.gradoObesidad = "Sobrepeso";
-        } else if (this.getIMC() <= 30.00 || this.getIMC() <= 34.99) {
-            this.gradoObesidad = "Obeso: Tipo I";
-        } else if (this.getIMC() <= 35.00 || this.getIMC() <= 40.00) {
-            this.gradoObesidad = "Obeso: Tipo III";
+        if (IMC < 16) {
+            gradoObesidad = "Infrapeso: Delgadez Severa";
+        } else if (IMC <= 16 && IMC <= 16.99) {
+            gradoObesidad = "Infrapeso: Delgadez moderada";
+        } else if (IMC <= 17 && IMC <= 18.49) {
+            gradoObesidad = "Infrapeso: Delgadez aceptable";
+        } else if (IMC <= 18.5 && IMC <= 24.99) {
+            gradoObesidad = "Peso Normal";
+        } else if (IMC <= 25 && IMC <= 29.99) {
+            gradoObesidad = "Sobrepeso";
+        } else if (IMC <= 30 && IMC <= 34.99) {
+            gradoObesidad = "Obeso: Tipo I";
+        } else if (IMC <= 35 && IMC <= 40) {
+            gradoObesidad = "Obeso: Tipo III";
         } else {
-            this.gradoObesidad = "no existe clasificacion";
+            gradoObesidad = "no existe clasificacion";
         }
-        
-//        if (this.IMC < 16.00) {
-//            this.gradoObesidad = "Infrapeso: Delgadez Severa";
-//        } else if (this.getIMC() <= 16.00 || this.getIMC() <= 16.99) {
-//            this.gradoObesidad = "Infrapeso: Delgadez moderada";
-//        } else if (this.getIMC() <= 17.00 || this.getIMC() <= 18.49) {
-//            this.gradoObesidad = "Infrapeso: Delgadez aceptable";
-//        } else if (this.getIMC() <= 18.50 || this.getIMC() <= 24.99) {
-//            this.gradoObesidad = "Peso Normal";
-//        } else if (this.getIMC() <= 25.00 || this.getIMC() <= 29.99) {
-//            this.gradoObesidad = "Sobrepeso";
-//        } else if (this.getIMC() <= 30.00 || this.getIMC() <= 34.99) {
-//            this.gradoObesidad = "Obeso: Tipo I";
-//        } else if (this.getIMC() <= 35.00 || this.getIMC() <= 40.00) {
-//            this.gradoObesidad = "Obeso: Tipo III";
-//        } else {
-//            this.gradoObesidad = "no existe clasificacion";
-//        }
     }
-    
+
+    public void calcularIMC() {
+
+        float dato = (float) Math.pow(altura, 2);
+        IMC = peso / dato;
+        this.setIMC(IMC);
+    }
 
     public void guardarDerportista() throws SNMPExceptions, SQLException {
 
