@@ -30,19 +30,21 @@ public class ContrasenaUsuario {
     int tipoIdentificacionUsuario;
     String contrasena;
     String contrasenaVieja;
+    int tipoPerfil;
     String fechaRegistra;
     int idRegistra;
     String fechaEdita;
     int idEdita;
     int log;
 
-    public ContrasenaUsuario(int idContrasena, int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+    public ContrasenaUsuario(int idContrasena, int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja,int tipoPerfil, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         
         this.setIdContrasena(idContrasena);
         this.setIdentificacionUsuario(identificacionUsuario);
         this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
         this.setContrasena(contrasena);
         this.setContrasenaVieja(contrasenaVieja);
+        this.setTipoPerfil(tipoPerfil);
         this.setFechaRegistra(fechaRegistra);
         this.setIdRegistra(idRegistra);
         this.setFechaEdita(fechaEdita);
@@ -50,11 +52,12 @@ public class ContrasenaUsuario {
         this.setLog(log);
     }
 
-    public ContrasenaUsuario(int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
+    public ContrasenaUsuario(int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja,int tipoPerfil, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         this.setIdentificacionUsuario(identificacionUsuario);
         this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
         this.setContrasena(contrasena);
         this.setContrasenaVieja(contrasenaVieja);
+        this.setTipoPerfil(tipoPerfil);
         this.setFechaRegistra(fechaRegistra);
         this.setIdRegistra(idRegistra);
         this.setFechaEdita(fechaEdita);
@@ -108,6 +111,14 @@ public class ContrasenaUsuario {
         this.contrasenaVieja = contrasenaVieja;
     }
 
+    public int getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(int tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }  
+     
     public String getFechaRegistra() {
         return fechaRegistra;
     }

@@ -36,22 +36,22 @@
                     <h:form class="login100-form validate-form">
                         <div class="wrap-input100 validate-input m-b-26" data-validate="Usuario Requerido">
                             <span class="label-input100">Usuario</span>
-                            <h:inputText class="input100" value="" ></h:inputText>
+                            <h:inputText class="input100" value="#{beanContrasenna.identificacionUsuario}" ></h:inputText>
                             <span class="focus-input100"></span>
                         </div>
 
                         <div class="wrap-input100 validate-input m-b-18" data-validate = "Contraseña Requerida">
                             <span class="label-input100">Contraseña</span>
-                            <h:inputSecret class="input100" value="#"></h:inputSecret>
+                            <h:inputSecret class="input100" value="#{beanContrasenna.contrasena}"></h:inputSecret>
                             <span class="focus-input100"></span>
                         </div>
-                        
-                         <div class="wrap">
-                        <h:outputText class="label-input100" value="Perfil"></h:outputText>
-                        <h:selectOneMenu label="per" value="#{beanPrefil.idperfil}">
-                            <f:selectItems value="#{beanPrefil.listaPerfil}"></f:selectItems>
-                        </h:selectOneMenu>
-                    </div>
+
+                        <div class="wrap">
+                            <h:outputText class="label-input100" value="Perfil"></h:outputText>
+                            <h:selectOneMenu label="per" value="#{beanPrefil.idperfil}">
+                                <f:selectItems value="#{beanPrefil.listaPerfil}"></f:selectItems>
+                            </h:selectOneMenu>
+                        </div>
 
                         <div style="position: relative; left: 75%;
                              top: 50%;">
@@ -61,10 +61,10 @@
                         </div>
 
                         <div class="container-login100-form-btn" style="position: relative; top: 45px">
-                            <h:commandButton class="login100-form-btn" value="Ingresar" actionListener="#"></h:commandButton>
+                            <h:commandButton class="login100-form-btn" value="Ingresar" actionListener="#{beanContrasenna.iniciarSesion()}"></h:commandButton>
 
                         </div>
-                        
+
                         <div style="position: relative; left: 50%;
                              top: 50%;">
                             <a href="#{request.contextPath}/faces/RecuperarContrasenna.xhtml" class="txt1">

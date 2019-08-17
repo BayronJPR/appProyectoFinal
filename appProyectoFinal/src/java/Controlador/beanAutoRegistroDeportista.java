@@ -69,6 +69,7 @@ public class beanAutoRegistroDeportista implements Serializable {
 
     private String contrasenna;
     private String contrasennaVieja;
+    private int tipoPerfil = 3;
 
     String mensaje;
     private String mensajeTel;
@@ -345,6 +346,15 @@ public class beanAutoRegistroDeportista implements Serializable {
         this.contrasennaVieja = contrasennaVieja;
     }
 
+    public int getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(int tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }
+    
+
     public LinkedList<TelefonoUsuario> getListaTelefnosUsuario() {
         return listaTelefnosUsuario;
     }
@@ -476,7 +486,7 @@ public class beanAutoRegistroDeportista implements Serializable {
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
 
-                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
+                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja,this.tipoPerfil, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
                 ContrasenaUsuarioDB contraDB = new ContrasenaUsuarioDB();
                 contraDB.InsertarContrasenaUsuario(contra);
 

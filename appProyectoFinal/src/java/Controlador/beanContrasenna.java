@@ -5,9 +5,20 @@
  */
 package Controlador;
 
+import DAO.SNMPExceptions;
+import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import Model.ContrasenaUsuario;
+import Model.ContrasenaUsuarioDB;
 
 /**
  *
@@ -16,12 +27,13 @@ import java.io.Serializable;
 @Named(value = "beanContrasenna")
 @SessionScoped
 public class beanContrasenna implements Serializable {
-    
+
     int idContrasena;
     int identificacionUsuario;
     int tipoIdentificacionUsuario;
     String contrasena;
     String contrasenaVieja;
+    int tipoPerfil;
     String fechaRegistra;
     int idRegistra;
     String fechaEdita;
@@ -71,6 +83,14 @@ public class beanContrasenna implements Serializable {
         this.contrasenaVieja = contrasenaVieja;
     }
 
+    public int getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(int tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }
+
     public String getFechaRegistra() {
         return fechaRegistra;
     }
@@ -110,7 +130,30 @@ public class beanContrasenna implements Serializable {
     public void setLog(int log) {
         this.log = log;
     }
-    
-    
-    
+
+    public void iniciarSesion() throws SNMPExceptions, SQLException, IOException {
+        ContrasenaUsuario contrasena = null;
+        contrasena = ContrasenaUsuarioDB.iniciarSesion(this.getIdentificacionUsuario(), this.getContrasena(), this.getTipoPerfil());
+        //Se comprueba la variable contrasena, si es nula, retorna mensaje de error
+        if (contrasena != null) {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ContrasenaUsuario", this.getIdentificacionUsuario());//Se agrega el usuario a la sesión
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Perfil",this.getTipoPerfil());
+            //Se comprueba el Activo del usuario. Si es 0 (primera vez en el sistema) se redirecciona a otra pagina para cambiar la clave
+
+            if (contrasena.getTipoPerfil() == 1)//Si es Administrador
+            {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
+            } else if (contrasena.getTipoPerfil() == 2)//Si es Instrcutor
+            {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
+            } else//Si es Deportista
+            {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipalDeportista.xhtml");
+            }
+
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Aviso: Usuario o Contraseña incorrecta", "Usuario o Contraseña incorrecta"));
+        }
+    }
+
 }
