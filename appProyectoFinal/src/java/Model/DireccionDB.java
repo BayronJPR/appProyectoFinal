@@ -50,9 +50,9 @@ public class DireccionDB {
                     + "'" + direc.getCodDistrito() + "'" + ","
                     + "'" + direc.getCodBarrio() + "'" + ","
                     + "'" + direc.getOtras() + "'" + ","
-                    + "'" + direc.getFechaRegistra() + "'" + ","
+                    + "Getdate()"+ ","
                     + "'" + direc.getIdRegistra() + "'" + ","
-                    + "'" + direc.getFechaEdita() + "'" + ","
+                    + "Getdate()"+ ","
                     + "'" + direc.getIdEdita() + "'" + ","
                     + "'" + direc.getLog() + "'" + ")";
 

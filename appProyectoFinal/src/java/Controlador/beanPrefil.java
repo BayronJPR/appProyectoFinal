@@ -6,8 +6,8 @@
 package Controlador;
 
 import DAO.SNMPExceptions;
-import Model.DisciplinaDB;
-import Model.Disciplina;
+import Model.Perfil;
+import Model.PerfilDB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -21,23 +21,27 @@ import javax.faces.model.SelectItem;
  *
  * @author luubs
  */
-@Named(value = "beanDisciplinaDeportiva")
+@Named(value = "beanPrefil")
 @SessionScoped
-public class beanDisciplinaDeportiva implements Serializable {
+public class beanPrefil implements Serializable {
 
-    private int idDisciplina;
+    /**
+     * Creates a new instance of beanPrefil
+     */
+    
+    private int idperfil;
     private String descipcion;
     private int LOG_ACTIVO;
-
-    public beanDisciplinaDeportiva() {
+    
+    public beanPrefil() {
     }
 
-    public int getIdDisciplina() {
-        return idDisciplina;
+    public int getIdperfil() {
+        return idperfil;
     }
 
-    public void setIdDisciplina(int idDisciplina) {
-        this.idDisciplina = idDisciplina;
+    public void setIdperfil(int idperfil) {
+        this.idperfil = idperfil;
     }
 
     public String getDescipcion() {
@@ -55,25 +59,24 @@ public class beanDisciplinaDeportiva implements Serializable {
     public void setLOG_ACTIVO(int LOG_ACTIVO) {
         this.LOG_ACTIVO = LOG_ACTIVO;
     }
-
-    public LinkedList<SelectItem> getListaDisciplinas()
-            throws SNMPExceptions, SQLException {
+    
+    public LinkedList<SelectItem> getListaPerfil() throws SNMPExceptions, SQLException {
         int id;
         String descripcion = "";
 
-        LinkedList<Disciplina> lista = new LinkedList<Disciplina>();
-        DisciplinaDB disciplina = new DisciplinaDB();
+        LinkedList<Perfil> lista = new LinkedList<Perfil>();
+        PerfilDB perfil = new PerfilDB();
 
-        lista = disciplina.moTodo();
+        lista = perfil.moTodo();
         LinkedList resultList = new LinkedList();
-        resultList.add(new SelectItem(0, "Seleccione Disciplina"));
+        resultList.add(new SelectItem(0, "Seleccione Perfil"));
 
         for (Iterator iter = lista.iterator();
                 iter.hasNext();) {
 
-            Disciplina discip = (Disciplina) iter.next();
-            id = discip.getIdDisciplina();
-            descripcion = discip.getDescripcion();
+            Perfil perf = (Perfil) iter.next();
+            id = perf.getIdPerfil();
+            descripcion = perf.getDescripcion();
             resultList.add(new SelectItem(id, descripcion));
 
         }
@@ -81,13 +84,13 @@ public class beanDisciplinaDeportiva implements Serializable {
         return resultList;
     }
 
-    public void transferir() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        beanRegistroInstructor beanAuto
-                = context.getApplication().evaluateExpressionGet(context, "#{beanRegistroInstructor}", beanRegistroInstructor.class);
-
-        beanAuto.setDisciplinaDeportiva(idDisciplina);
-
-    }
-
+//    public void transferir() {
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        beanPrefil beanAuto
+//                = context.getApplication().evaluateExpressionGet(context, "#{beanPrefil}", beanPrefil.class);
+//
+//        beanAuto.setIdperfil(idperfil);
+//
+//    }
+    
 }

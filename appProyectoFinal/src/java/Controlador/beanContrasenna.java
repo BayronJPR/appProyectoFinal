@@ -3,27 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Model;
+package Controlador;
+
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 
 /**
  *
- * @author MrHaksh
- * 
-ContrasenaUsuario(
-idContrasena int IDENTITY(1,1) not null,
-identificacionUsuario int not null,
-tipoIdentificacionUsuario int not null,
-contrasena varchar(100),
-contrasenaVieja varchar(100),
-FechaRegistra varchar(250),
-IdRegistra int,
-FechaEdita varchar(250),
-IdEdita int,
-LOG_ACTIVO bit
-);
- * 
+ * @author luubs
  */
-public class ContrasenaUsuario {
+@Named(value = "beanContrasenna")
+@SessionScoped
+public class beanContrasenna implements Serializable {
     
     int idContrasena;
     int identificacionUsuario;
@@ -36,37 +28,8 @@ public class ContrasenaUsuario {
     int idEdita;
     int log;
 
-    public ContrasenaUsuario(int idContrasena, int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
-        
-        this.setIdContrasena(idContrasena);
-        this.setIdentificacionUsuario(identificacionUsuario);
-        this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
-        this.setContrasena(contrasena);
-        this.setContrasenaVieja(contrasenaVieja);
-        this.setFechaRegistra(fechaRegistra);
-        this.setIdRegistra(idRegistra);
-        this.setFechaEdita(fechaEdita);
-        this.setIdEdita(idEdita);
-        this.setLog(log);
+    public beanContrasenna() {
     }
-
-    public ContrasenaUsuario(int identificacionUsuario, int tipoIdentificacionUsuario, String contrasena, String contrasenaVieja, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
-        this.setIdentificacionUsuario(identificacionUsuario);
-        this.setTipoIdentificacionUsuario(tipoIdentificacionUsuario);
-        this.setContrasena(contrasena);
-        this.setContrasenaVieja(contrasenaVieja);
-        this.setFechaRegistra(fechaRegistra);
-        this.setIdRegistra(idRegistra);
-        this.setFechaEdita(fechaEdita);
-        this.setIdEdita(idEdita);
-        this.setLog(log);
-    }
-    
-    
-
-    public ContrasenaUsuario() {
-    }
-    
 
     public int getIdContrasena() {
         return idContrasena;

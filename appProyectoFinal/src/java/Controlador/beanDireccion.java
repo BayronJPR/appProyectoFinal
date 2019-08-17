@@ -507,14 +507,27 @@ public class beanDireccion implements Serializable {
     
     public void transferir(){
         FacesContext context= FacesContext.getCurrentInstance();
+        
+        //transfiere a instructor
         beanRegistroInstructor beanAuto= 
           context.getApplication().evaluateExpressionGet(context,"#{beanRegistroInstructor}",beanRegistroInstructor.class);
-        
+              
         beanAuto.setCodprovincia(codProvincia);
         beanAuto.setCodcanton(idCanton);
         beanAuto.setCoddistrito(codDistrito);
         beanAuto.setCodbarrio(codBarrio);
         beanAuto.setOtrasSenas(otrasSenas);
+        
+        
+        // transfiere a deportista
+         beanAutoRegistroDeportista beanAutoDepor = 
+          context.getApplication().evaluateExpressionGet(context,"#{beanAutoRegistroDeportista}",beanAutoRegistroDeportista.class);
+              
+        beanAutoDepor.setCodprovincia(codProvincia);
+        beanAutoDepor.setCodcanton(idCanton);
+        beanAutoDepor.setCoddistrito(codDistrito);
+        beanAutoDepor.setCodbarrio(codBarrio);
+        beanAutoDepor.setOtrasSenas(otrasSenas);
     }
     
 }

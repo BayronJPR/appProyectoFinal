@@ -27,8 +27,8 @@ public class AutoRegistroDeportistaDB {
 
     public AutoRegistroDeportistaDB() {
     }
-    
-     public void InsertarDeportista(AutoRegistroDeportista deportista)
+
+    public void InsertarDeportista(AutoRegistroDeportista deportista)
             throws SNMPExceptions, SQLException {
         String strSQL = "";
 
@@ -39,17 +39,21 @@ public class AutoRegistroDeportistaDB {
 
             strSQL
                     = "INSERT INTO AutoRegistroDeportista (identificacionUsuario, tipoIdentificacionUsuario,"
-                    + " peso,talla,altura, IMC, FechaRegistra,IdRegistra, FechaEdita,"
+                    + " peso,talla,altura,IMC,GradoObesidad,Objetivo1, Objetivo2, Objetivo3, FechaRegistra,IdRegistra, FechaEdita,"
                     + "IdEdita,LOG_ACTIVO) VALUES "
-                    + "(" + "'" + deport.getIdentificacionUsuario()+ "'" + ","
-                    + "'" + deport.getTipoIdentificacionUsuario()+ "'" + ","
-                    + "'" + deport.getPeso()+ "'" + ","
-                    + "'" + deport.getTalla()+ "'" + ","
-                    + "'" + deport.getAltura()+ "'" + ","
-                    + "'" + deport.getIMC()+ "'" + ","
-                    + "Getdate()"+ ","
+                    + "(" + "'" + deport.getIdentificacionUsuario() + "'" + ","
+                    + "'" + deport.getTipoIdentificacionUsuario() + "'" + ","
+                    + "'" + deport.getPeso() + "'" + ","
+                    + "'" + deport.getTalla() + "'" + ","
+                    + "'" + deport.getAltura() + "'" + ","
+                    + "'" + deport.getIMC() + "'" + ","
+                    + "'" + deport.getGradoObesidad() + "'" + ","
+                    + "'" + deport.getObjetivo1() + "'" + ","
+                    + "'" + deport.getObjetivo2() + "'" + ","
+                    + "'" + deport.getObjetivo3() + "'" + ","
+                    + "Getdate()" + ","
                     + "'" + deport.getIdRegistra() + "'" + ","
-                    + "Getdate()"+ ","
+                    + "Getdate()" + ","
                     + "'" + deport.getIdEdita() + "'" + ","
                     + "'" + deport.getLog() + "'" + ")";
 

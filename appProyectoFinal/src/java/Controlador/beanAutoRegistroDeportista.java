@@ -14,6 +14,11 @@ import Model.TelefonoUsuario;
 import Model.TelefonoUsuarioDB;
 import Model.Usuario;
 import Model.UsuarioDB;
+import Model.AutoRegistroDeportista;
+import Model.AutoRegistroDeportistaDB;
+import Model.Correo;
+import Model.ContrasenaUsuario;
+import Model.ContrasenaUsuarioDB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -40,7 +45,7 @@ public class beanAutoRegistroDeportista implements Serializable {
     private int IdRegistra;
     private String FechaEdita;
     private int IdEdita;
-    private int LOG_ACVIVO;
+    private int LOG_ACTIVO;
     // tabla telefono
     private int idTelefono;
     private String numeroTelefono;
@@ -58,6 +63,12 @@ public class beanAutoRegistroDeportista implements Serializable {
     private float altura;
     private float IMC;
     private String gradoObesidad;
+    private String objetivo1;
+    private String objetivo2;
+    private String objetivo3;
+
+    private String contrasenna;
+    private String contrasennaVieja;
 
     String mensaje;
     private String mensajeTel;
@@ -67,7 +78,7 @@ public class beanAutoRegistroDeportista implements Serializable {
     public beanAutoRegistroDeportista() {
     }
 
-//    @ManagedProperty(value = "{beanDireccion}")
+    @ManagedProperty(value = "{beanDireccion}")
     private beanDireccion beanDireccion;
 
     public beanDireccion getBeanDireccion() {
@@ -159,11 +170,11 @@ public class beanAutoRegistroDeportista implements Serializable {
     }
 
     public int getLOG_ACVIVO() {
-        return LOG_ACVIVO;
+        return LOG_ACTIVO;
     }
 
     public void setLOG_ACVIVO(int LOG_ACVIVO) {
-        this.LOG_ACVIVO = LOG_ACVIVO;
+        this.LOG_ACTIVO = LOG_ACVIVO;
     }
 
     public int getIdTelefono() {
@@ -270,6 +281,38 @@ public class beanAutoRegistroDeportista implements Serializable {
         this.gradoObesidad = gradoObesidad;
     }
 
+    public int getLOG_ACTIVO() {
+        return LOG_ACTIVO;
+    }
+
+    public void setLOG_ACTIVO(int LOG_ACTIVO) {
+        this.LOG_ACTIVO = LOG_ACTIVO;
+    }
+
+    public String getObjetivo1() {
+        return objetivo1;
+    }
+
+    public void setObjetivo1(String objetivo1) {
+        this.objetivo1 = objetivo1;
+    }
+
+    public String getObjetivo2() {
+        return objetivo2;
+    }
+
+    public void setObjetivo2(String objetivo2) {
+        this.objetivo2 = objetivo2;
+    }
+
+    public String getObjetivo3() {
+        return objetivo3;
+    }
+
+    public void setObjetivo3(String objetivo3) {
+        this.objetivo3 = objetivo3;
+    }
+
     public String getMensaje() {
         return mensaje;
     }
@@ -284,6 +327,22 @@ public class beanAutoRegistroDeportista implements Serializable {
 
     public void setMensajeTel(String mensajeTel) {
         this.mensajeTel = mensajeTel;
+    }
+
+    public String getContrasenna() {
+        return contrasenna;
+    }
+
+    public void setContrasenna(String contrasenna) {
+        this.contrasenna = contrasenna;
+    }
+
+    public String getContrasennaVieja() {
+        return contrasennaVieja;
+    }
+
+    public void setContrasennaVieja(String contrasennaVieja) {
+        this.contrasennaVieja = contrasennaVieja;
     }
 
     public LinkedList<TelefonoUsuario> getListaTelefnosUsuario() {
@@ -329,6 +388,41 @@ public class beanAutoRegistroDeportista implements Serializable {
         this.setIMC(IMC);
     }
 
+    public void agregarTelefonos() {
+
+//        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
+//        
+//        this.listaTelefnosUsuario.add(tel);
+        TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
+        try {
+
+            if (telDB.consultarTelefono(numeroTelefono) == true) {
+
+                this.setMensajeTel("Teléfono ya Registrado!");
+
+            } else {
+                TelefonoUsuario tel = new TelefonoUsuario(this.getIdTelefono(), this.getTipoIdentificacion(), this.getNumeroTelefono(), 1);
+                //si la lista esta vacia agrega el telefono
+                if (listaTelefnosUsuario.size() == 0) {
+                    listaTelefnosUsuario.add(tel);
+                } else {
+                    //Si ya tiene elementos la compara con el numero que viene 
+                    //y si no son iguales lo mete en la lista.
+                    for (int i = 0; i < listaTelefnosUsuario.size(); i++) {
+                        if (listaTelefnosUsuario.get(i).getTelefono() != this.getNumeroTelefono()) {
+                            listaTelefnosUsuario.add(tel);
+                            break;
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
     public void guardarDerportista() throws SNMPExceptions, SQLException {
 
         try {
@@ -347,15 +441,21 @@ public class beanAutoRegistroDeportista implements Serializable {
 
                 Usuario usuario = new Usuario(this.cedula, this.tipoIdentificacion,
                         this.nombre, this.apellido1, this.apellido2, this.correoElectronico, this.fechaRegistra,
-                        this.IdRegistra, this.FechaEdita, this.IdEdita, this.LOG_ACVIVO);
+                        this.IdRegistra, this.FechaEdita, this.IdEdita, this.LOG_ACTIVO);
 
                 UsuarioDB usuarioDB = new UsuarioDB();
                 usuarioDB.InsertarUsuario(usuario);
 
+                AutoRegistroDeportista deportista = new AutoRegistroDeportista(this.cedula, this.tipoIdentificacion, this.peso,
+                        this.talla, this.altura, this.IMC, this.gradoObesidad, this.objetivo1, this.objetivo2, this.objetivo3, this.fechaRegistra, this.IdRegistra, this.FechaEdita,
+                        this.IdEdita, this.LOG_ACTIVO);
+                AutoRegistroDeportistaDB deportistaDB = new AutoRegistroDeportistaDB();
+                deportistaDB.InsertarDeportista(deportista);
+
                 /*insert en tabla perfilUsuario
         todos los de autoregistros van con como instructores
         los de registro desde la db se insertan*/
-                int codPerfil = 2;
+                int codPerfil = 3;
                 PerfilUsuarioDB pUsu = new PerfilUsuarioDB();
                 pUsu.insertarPerfilUsuario(this.cedula, this.tipoIdentificacion, codPerfil);
 
@@ -376,7 +476,11 @@ public class beanAutoRegistroDeportista implements Serializable {
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
 
-                // this.enviarEmail();
+                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
+                ContrasenaUsuarioDB contraDB = new ContrasenaUsuarioDB();
+                contraDB.InsertarContrasenaUsuario(contra);
+
+                this.enviarEmail();
                 //redirigir a la pagina de Comprobacion
                 FacesContext.getCurrentInstance().getExternalContext().redirect("Ingreso.xhtml");
 
@@ -385,8 +489,26 @@ public class beanAutoRegistroDeportista implements Serializable {
         } catch (Exception e) {
             // TODO: Add catch code
             e.printStackTrace();
-            this.setMensaje("El Usuario ya se Encuentran Registrados!");
+            this.setMensaje("El Usuario ya se encuentra Registrado!");
         }
 
     }
+
+    public void enviarEmail() {
+        try {
+            String destino = this.getCorreoElectronico();
+            String asunto = "Comprobación de Registro SIEAF";
+            String mensajeCorreo = "Usuario: " + this.getCedula()
+                    + "\nTan pronto como sea asignado un instructor se le informará nuevamente al correo";
+
+            Correo objCorreo = new Correo();
+
+            objCorreo.enviarMail(destino, asunto, mensajeCorreo);
+            this.setMensaje("Correo Enviado!");
+
+        } catch (Exception e) {
+            this.setMensaje(e.getMessage());
+        }
+    }
+
 }
