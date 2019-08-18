@@ -353,7 +353,6 @@ public class beanAutoRegistroDeportista implements Serializable {
     public void setTipoPerfil(int tipoPerfil) {
         this.tipoPerfil = tipoPerfil;
     }
-    
 
     public LinkedList<TelefonoUsuario> getListaTelefnosUsuario() {
         return listaTelefnosUsuario;
@@ -433,6 +432,24 @@ public class beanAutoRegistroDeportista implements Serializable {
 
     }
 
+    public void enviarEmail() {
+        try {
+            String destino = this.getCorreoElectronico();
+            String asunto = "Comprobación de Registro SIEAF";
+            String mensajeCorreo = "Hola  " + this.getNombre() + "   " + this.getCedula()
+                    + "\nAutoregistro existoso!"
+                    + "\nTan pronto como sea asignado su instructor se le informará nuevamente por este medio";
+
+            Correo objCorreo = new Correo();
+
+            objCorreo.enviarMail(destino, asunto, mensajeCorreo);
+            this.setMensaje("Correo Enviado!");
+
+        } catch (Exception e) {
+            this.setMensaje(e.getMessage());
+        }
+    }
+
     public void guardarDerportista() throws SNMPExceptions, SQLException {
 
         try {
@@ -486,7 +503,7 @@ public class beanAutoRegistroDeportista implements Serializable {
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
 
-                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja,this.tipoPerfil, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
+                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja, this.tipoPerfil, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
                 ContrasenaUsuarioDB contraDB = new ContrasenaUsuarioDB();
                 contraDB.InsertarContrasenaUsuario(contra);
 
@@ -502,23 +519,6 @@ public class beanAutoRegistroDeportista implements Serializable {
             this.setMensaje("El Usuario ya se encuentra Registrado!");
         }
 
-    }
-
-    public void enviarEmail() {
-        try {
-            String destino = this.getCorreoElectronico();
-            String asunto = "Comprobación de Registro SIEAF";
-            String mensajeCorreo = "Usuario: " + this.getCedula()
-                    + "\nTan pronto como sea asignado un instructor se le informará nuevamente al correo";
-
-            Correo objCorreo = new Correo();
-
-            objCorreo.enviarMail(destino, asunto, mensajeCorreo);
-            this.setMensaje("Correo Enviado!");
-
-        } catch (Exception e) {
-            this.setMensaje(e.getMessage());
-        }
     }
 
 }

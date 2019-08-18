@@ -70,7 +70,7 @@ public class Correo {
 
         try {
             //correo(cuenta propia de gmail) del usuario para mandar mails
-            String usuarioCorreo = "sieafutn.com";
+            String usuarioCorreo = "sieafutn@gmail.com";
             String pass = "123456utn";
 
             Properties p = new Properties();
@@ -84,17 +84,9 @@ public class Correo {
             BodyPart texto = new MimeBodyPart();
             texto.setText(mensajeMail);
 
-            /*BodyPart adjunto= new MimeBodyPart();
-            if(!correo.getRuta().equals("")){
-                adjunto.setDataHandler(new DataHandler(new FileDataSource(correo.getRuta())));
-                adjunto.setFileName(correo.getNombre());
-            }*/
             MimeMultipart m = new MimeMultipart();
             m.addBodyPart(texto);
 
-            /*if(!correo.getRuta().equals("")){
-                m.addBodyPart(adjunto);
-            }*/
             MimeMessage mensaje = new MimeMessage(session);
             mensaje.setFrom(new InternetAddress(usuarioCorreo));
             mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(destinoMail));
