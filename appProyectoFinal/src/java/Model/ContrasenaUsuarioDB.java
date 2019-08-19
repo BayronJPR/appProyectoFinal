@@ -64,6 +64,7 @@ public class ContrasenaUsuarioDB {
         }
     }
 
+    
     public boolean consultarContrasenaUsuarioPorID(int id, int tipoID, String contra)
             throws SNMPExceptions, SQLException {
 
@@ -98,10 +99,14 @@ public class ContrasenaUsuarioDB {
         }
 
     }
+    
 
     public static ContrasenaUsuario iniciarSesion(int ced, String contrasena, int tipoPerfil) throws SNMPExceptions, SQLException {
+        
         String select = "";
-        ContrasenaUsuario cU = null;
+        ContrasenaUsuario cU = new ContrasenaUsuario();
+       // ContrasenaUsuario cU = null;
+       
         try {
             //Se instancia la clase de acceso a datos
             AccesoDatos accesoDatos = new AccesoDatos();

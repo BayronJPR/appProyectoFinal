@@ -132,23 +132,26 @@ public class beanContrasenna implements Serializable {
     }
 
     public void iniciarSesion() throws SNMPExceptions, SQLException, IOException {
-        ContrasenaUsuario contrasena = null;
-        contrasena = ContrasenaUsuarioDB.iniciarSesion(this.getIdentificacionUsuario(), this.getContrasena(), this.getTipoPerfil());
+        
+       // ContrasenaUsuario contrasUsua = null;
+        ContrasenaUsuario contrasUsua = new ContrasenaUsuario();
+        
+        contrasUsua = ContrasenaUsuarioDB.iniciarSesion(this.getIdentificacionUsuario(), this.getContrasena(), this.getTipoPerfil());
         //Se comprueba la variable contrasena, si es nula, retorna mensaje de error
-        if (contrasena != null) {
+        if (contrasUsua != null) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("ContrasenaUsuario", this.getIdentificacionUsuario());//Se agrega el usuario a la sesión
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Perfil",this.getTipoPerfil());
             //Se comprueba el Activo del usuario. Si es 0 (primera vez en el sistema) se redirecciona a otra pagina para cambiar la clave
 
-            if (contrasena.getTipoPerfil() == 1)//Si es Administrador
+            if (contrasUsua.getTipoPerfil() == 1)//Si es Administrador
             {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
-            } else if (contrasena.getTipoPerfil() == 2)//Si es Instrcutor
+            } else if (contrasUsua.getTipoPerfil() == 2)//Si es Instrcutor
             {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
             } else//Si es Deportista
             {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipalDeportista.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
             }
 
         } else {
