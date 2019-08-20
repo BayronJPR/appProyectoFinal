@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Plan Entrenamiento</title>
         <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
@@ -12,19 +13,71 @@
     </h:head>
     <h:body>
         <h:form>
-            <a href="#{request.contextPath}/faces/PaginaPrincipal.xhtml">Regresar</a>
+            <a href="#{request.contextPath}/faces/PaginaPrincipalInstructor.xhtml">Regresar</a>
             <center>
-             <h1 style="color: #0E6251">Plan entrenmiento - Diario, Semanal, Mensual</h1>
-             </center>
-             <br></br>
-             <br></br> 
-             <div align="center" style=" width: 65%">
-                <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
-              <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
-            </div>
+                <h1 style="color: #0E6251">Plan entrenmiento - Diario, Semanal, Mensual</h1>
+
+                <br></br>
+                <br></br> 
+                <div align="center" style=" width: 65%">
+                    <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
+                </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <table>
+                    <tr>
+                        <td>
+                            <h:outputText value="Seleccione el Deportista: "></h:outputText>
+                            <h:selectOneMenu label="depor" value="#{beanAutoRegistroDeportista.nombre}">
+                                <f:selectItems value="#{beanAutoRegistroDeportista.listaDeportistas}"></f:selectItems>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="Seleccione la periocidad del entrenamiento "></h:outputText>
+                            <h:selectOneMenu class="form-control" value="#{beanPlanEntrenamiento.periodicidad}" required="true" label="Perfil ">
+                                <f:selectItem itemValue="0" itemLabel="Diario"></f:selectItem>
+                                <f:selectItem itemValue="1" itemLabel="Dias no consecutivos"></f:selectItem>
+                                <f:selectItem itemValue="2" itemLabel="Semanal"></f:selectItem>
+                                <f:selectItem itemValue="3" itemLabel="Mensual"></f:selectItem>
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Fecha Inicio: "></h:outputText>
+                            <p:calendar id="event" value="#{beanPlanEntrenamiento.fechaInicio}">
+                                <p:ajax event="dateSelect"></p:ajax>
+                            </p:calendar>
+                        </td>
+
+                        <td><h:outputText value="Fecha Fin: "></h:outputText>
+                            <p:calendar id="event2" value="#{beanPlanEntrenamiento.fechaInicio}">
+                                <p:ajax event="dateSelect"></p:ajax>
+                            </p:calendar>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Explicación del ejercicio "></h:outputText></td>
+                        <td><h:inputText></h:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Duración "></h:outputText></td>
+                        <td><h:inputText></h:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputText value="Cantidad de Repeticiones "></h:outputText></td>
+                        <td><h:inputText></h:inputText></td>
+                    </tr>   
+                </table>
+                <input type="button" class="botones" onclick=" location.href = 'PaginaPrincipalInstructor.xhtml'" value="Guardar" /> 
+                <input type="button" class="botones" onclick=" location.href = 'PaginaPrincipalInstructor.xhtml'" value="Salir" /> 
+            </center>
         </h:form>
     </h:body>
 </html>

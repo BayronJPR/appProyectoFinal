@@ -19,10 +19,10 @@
         <div class="divForm" align="center">
             <h:form>   
                 <div align="center" style=" width: 65%">
-                    <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
-                    <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton  actionListener="#{beanAutoRegistroDeportista.limpiarCampos()}" value="Nuevo" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton  actionListener="#{beanAutoRegistroDeportista.guardarDerportista()}" value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
                     <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
-                    <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>                    
+                    <h:commandButton value="Buscar" style="margin-left: 5px; width: 10%"></h:commandButton>                   
                     <input type="button" onclick=" location.href = 'AyudaAutoRegistroDeportistas.xhtml'" value="Ayuda" style="margin-left: 5px; width: 10%" /> 
                 </div>
                 <table>
@@ -190,7 +190,7 @@
                         <td>Contraseña
                             <h:inputText value="#{beanAutoRegistroDeportista.contrasenna}"></h:inputText></td>
                     </tr>
-                    
+
                 </table>
                 <h:commandButton  class="botones" actionListener="#{beanAutoRegistroDeportista.guardarDerportista()}" value="Registrar"></h:commandButton>
                 <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 

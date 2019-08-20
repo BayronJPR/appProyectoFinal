@@ -18,11 +18,11 @@
         <div class="divForm" align="center">
             <h:form>      
                 <div align="center" style=" width: 65%">
-                    <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
-                    <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton  actionListener="#{beanRegistroInstructor.limpiarCampos()}" value="Nuevo" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton  actionListener="#{beanRegistroInstructor.guardarUsuario()}" value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
                     <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
                     <h:commandButton value="Buscar" style="margin-left: 5px; width: 10%"></h:commandButton>
-                    <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
+                    <input type="button" onclick=" location.href = 'AyudaRegistroInstructores.xhtml'" value="Ayuda" style="margin-left: 5px; width: 10%" />             
                 </div>
                 <table>
                     <caption>
@@ -156,7 +156,11 @@
                                 <f:selectItems value="#{beanDisciplinaDeportiva.listaDisciplinas}"></f:selectItems>
                             </h:selectOneMenu>
                         </td>
-                    </tr>   
+                    </tr>  
+                     <tr>
+                        <td>Contraseña
+                            <h:inputText value="#{beanRegistroInstructor.contrasenna}"></h:inputText></td>
+                    </tr>
                 </table>
                 <h:commandButton  class="botones" actionListener="#{beanRegistroInstructor.guardarUsuario()}" value="Registrar"></h:commandButton>
                 <input type="button" class="botones" onclick=" location.href = 'Ingreso.xhtml'" value="Cancelar" /> 

@@ -19,13 +19,16 @@ import Model.AutoRegistroDeportistaDB;
 import Model.Correo;
 import Model.ContrasenaUsuario;
 import Model.ContrasenaUsuarioDB;
+import Model.DisciplinaUsuarioDB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 /**
  *
@@ -45,7 +48,7 @@ public class beanAutoRegistroDeportista implements Serializable {
     private int IdRegistra;
     private String FechaEdita;
     private int IdEdita;
-    private int LOG_ACTIVO;
+    private int LOG_ACTIVO =1;
     // tabla telefono
     private int idTelefono;
     private String numeroTelefono;
@@ -75,6 +78,7 @@ public class beanAutoRegistroDeportista implements Serializable {
     private String mensajeTel;
 
     private LinkedList<TelefonoUsuario> listaTelefnosUsuario = new LinkedList<TelefonoUsuario>();
+    private LinkedList<Usuario> listaDeportistas = new LinkedList<Usuario>();
 
     public beanAutoRegistroDeportista() {
     }
@@ -367,6 +371,76 @@ public class beanAutoRegistroDeportista implements Serializable {
 
     }
 
+    public LinkedList<Usuario> getListaDeportistas() {
+        return listaDeportistas;
+    }
+
+    public void setListaDeportistas(LinkedList<Usuario> listaDeportistas) {
+        this.listaDeportistas = listaDeportistas;
+    }
+    
+    
+//    public void setListaDeportistas(LinkedList<Usuario> listaDeportistas) {
+//        this.listaDeportistas = listaDeportistas;
+//    }
+//    
+//    public LinkedList<Usuario> getListaDeportistas() throws SNMPExceptions, SQLException{
+//       String nom = "";
+//        String cod = "";
+//
+//        LinkedList<Usuario> lista = new LinkedList<Usuario>();
+//        UsuarioDB deportistaDB = new UsuarioDB();
+//
+//        lista = deportistaDB.moTodo();
+//
+//        LinkedList resultList = new LinkedList();
+//        resultList.add(new SelectItem(0, "Seleccione Deportista"));
+//
+//        for (Iterator iter = lista.iterator();
+//                iter.hasNext();) {
+//
+//            Usuario usu = (Usuario) iter.next();
+//            cod = usu.getNombre();
+//            nom = usu.getApellido1();
+//            resultList.add(new SelectItem(cod, nom));
+//
+//        }
+//        return resultList;
+//    }  
+    
+    public void limpiarCampos(){
+    this.setTipoIdentificacion(0);
+    this.setCedula(0);
+    this.setNombre("");
+    this.setApellido1("");
+    this.setApellido2("");
+    this.setNumeroTelefono("");
+    this.setCorreoElectronico("");
+    this.setCodprovincia(0);
+    this.setCodcanton(0);
+    this.setCoddistrito(0);
+    this.setCodbarrio(0);
+    this.setOtrasSenas("");
+    this.setPeso(0.0f);
+    this.setTalla(0.0f);
+    this.setAltura(0.0f);
+    this.setIMC(0.0f);
+    this.setGradoObesidad("");
+    this.setDisciplinaDeportiva(0);
+    this.setObjetivo1("");
+    this.setObjetivo2("");
+    this.setObjetivo3("");
+    this.setContrasenna("");
+    }    
+    
+     
+    public void mostrarLista()throws SNMPExceptions, SQLException{
+        
+        UsuarioDB depor= new UsuarioDB();       
+        this.setListaDeportistas(depor.moTodo());      
+        
+    }
+
     public void calcularGradoObesidad() {
 
         calcularIMC();
@@ -502,7 +576,9 @@ public class beanAutoRegistroDeportista implements Serializable {
                     telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.numeroTelefono, log);
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
-
+                DisciplinaUsuarioDB disDB = new DisciplinaUsuarioDB();
+                disDB.insertarDisciplinaUsuario(cedula, tipoIdentificacion, disciplinaDeportiva);
+                
                 ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja, this.tipoPerfil, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
                 ContrasenaUsuarioDB contraDB = new ContrasenaUsuarioDB();
                 contraDB.InsertarContrasenaUsuario(contra);

@@ -3,23 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controlador;
-
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
-import java.io.Serializable;
+package Model;
 
 /**
  *
- * @author MrHaksh
+ * @author luubs
+ * 
+CREATE  TABLE  PlanEntrenamiento(
+idPlan int IDENTITY(1,1) not null,
+identificacionUsuario int not null,
+tipoIdentificacionUsuario int not null,
+idDisciplina int not null,
+periodicidad varchar(100),
+fechaInicio varchar(100),
+fechaFin varchar(100),
+FechaRegistra varchar(250),
+IdRegistra int,
+FechaEdita varchar(250),
+IdEdita int,
+LOG_ACTIVO bit
+);
  */
-@Named(value = "beanPlanEntrenamiento")
-@SessionScoped
-public class beanPlanEntrenamiento implements Serializable {
-
-    /**
-     * Creates a new instance of beanPlanEntrenamiento
-     */
+public class PlanEntrenamiento {
     
     int idPlan;
     int identificacionUsuario;
@@ -33,9 +38,40 @@ public class beanPlanEntrenamiento implements Serializable {
     String fechaEdita;
     int idEdita;
     int LOG_ACTIVO;
-    
-    public beanPlanEntrenamiento() {
+
+    public PlanEntrenamiento(int idPlan, int identificacionUsuario, int tipoIdentificacionUsuario, int idDisciplina, String periodicidad, String fechaInicio, String fechaFin, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int LOG_ACTIVO) {
+        this.idPlan = idPlan;
+        this.identificacionUsuario = identificacionUsuario;
+        this.tipoIdentificacionUsuario = tipoIdentificacionUsuario;
+        this.idDisciplina = idDisciplina;
+        this.periodicidad = periodicidad;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.fechaRegistra = fechaRegistra;
+        this.idRegistra = idRegistra;
+        this.fechaEdita = fechaEdita;
+        this.idEdita = idEdita;
+        this.LOG_ACTIVO = LOG_ACTIVO;
     }
+
+    public PlanEntrenamiento(int identificacionUsuario, int tipoIdentificacionUsuario, int idDisciplina, String periodicidad, String fechaInicio, String fechaFin, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int LOG_ACTIVO) {
+        this.identificacionUsuario = identificacionUsuario;
+        this.tipoIdentificacionUsuario = tipoIdentificacionUsuario;
+        this.idDisciplina = idDisciplina;
+        this.periodicidad = periodicidad;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.fechaRegistra = fechaRegistra;
+        this.idRegistra = idRegistra;
+        this.fechaEdita = fechaEdita;
+        this.idEdita = idEdita;
+        this.LOG_ACTIVO = LOG_ACTIVO;
+    }
+
+    public PlanEntrenamiento() {
+    }
+    
+    
 
     public int getIdPlan() {
         return idPlan;
@@ -132,6 +168,7 @@ public class beanPlanEntrenamiento implements Serializable {
     public void setLOG_ACTIVO(int LOG_ACTIVO) {
         this.LOG_ACTIVO = LOG_ACTIVO;
     }
+    
     
     
 }

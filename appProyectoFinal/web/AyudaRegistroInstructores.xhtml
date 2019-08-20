@@ -4,8 +4,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
-    
-     <h:head>
+
+    <h:head>
         <title>Ayuda</title>
         <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
         <h:outputStylesheet library="css" name="autoregistro.css"></h:outputStylesheet>
@@ -16,29 +16,31 @@
     <h:body>  
         <center>
 
-            <h1>Ayuda Autoregistro</h1>
+            <h1>Ayuda Registro Instructores</h1>
             <br></br>
             <br></br>
             <br></br>
 
-            <h3> En esta sección del sistema los usuarios deportistas podrán autoregistrarse;
+            <h3> En esta sección del sistema se podrán registrar los instructores;
                 <br></br>
-                el sistema solicitará los datos personales asi como las disciplinas que entrenará, 
+                el sistema solicitará los datos personales así como las disciplinas que entrena, 
                 <br></br>
-                además calculara el Índice de Masa Corporal y grado de obesidad si aplica.
+                pronto serán asignado los deportistas.
                 <br></br>
-                Realizado este autoregistro recibirá un correo electrónico donde se indica que el
+                El botón nuevo limpia los campos para realizar un nuevo registro.
                 <br></br>
-                proceso de registro se realizo con éxito y que pronto le será asignado un instructor.</h3>
+                El botón registrar o guardar almacenará la información del instructor,
                 <br></br>
-                
+                no pueden haber campos en blanco para el registro
+            </h3>
             <br></br>
             <br></br>
             <br></br>
             <br></br>     
 
-            <input type="button" class="botones" onclick=" location.href = 'AutoregistroDeportistas.xhtml'" value="Aceptar" /> 
+            <input type="button" class="botones" onclick=" location.href = 'RegistroInstructores.xhtml'" value="Aceptar" /> 
         </center>
     </h:body>
 </html>
+
 

@@ -10,6 +10,7 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 /**
  *
@@ -47,9 +48,9 @@ public class UsuarioDB {
                     + "'" + usu.getApellido1() + "'" + ","
                     + "'" + usu.getApellido2() + "'" + ","
                     + "'" + usu.getCorreoElectronico() + "'" + ","
-                    + "Getdate()"+ ","
+                    + "Getdate()" + ","
                     + "'" + usu.getIdRegistra() + "'" + ","
-                    + "Getdate()"+ ","
+                    + "Getdate()" + ","
                     + "'" + usu.getIdEdita() + "'" + ","
                     + "'" + usu.getLog() + "'" + ")";
 
@@ -99,4 +100,42 @@ public class UsuarioDB {
         }
 
     }
+
+    public LinkedList<Usuario> moTodo() throws SNMPExceptions, SQLException {
+        String select = "";
+        LinkedList<Usuario> listaDeportistas = new LinkedList<Usuario>();
+
+        try {
+            AccesoDatos accesoDatos = new AccesoDatos();
+            select
+                    = "SELECT AutoRegistroDeportista.identificacionUsuario, Usuario.nombre, Usuario.apellido1,"
+                    + "  Usuario.apellido2, AutoRegistroDeportista.IMC, AutoRegistroDeportista.GradoObesidad\n"
+                    + "FROM Usuario, AutoRegistroDeportista where "
+                    + "Usuario.identificacion = AutoRegistroDeportista.identificacionUsuario; ";
+            ResultSet rsPA = accesoDatos.ejecutaSQLRetornaRS(select);
+            while (rsPA.next()) {
+
+                int id = rsPA.getInt("AutoRegistroDeportista.identificacionUsuario");
+                String nombre = rsPA.getString("Usuario.nombre");
+                String apellido1 = rsPA.getString("Usuario.apellido1");
+                String apellido2 = rsPA.getString("Usuario.apellido2");
+                int imc = rsPA.getInt("AutoRegistroDeportista.IMC");
+                String grado = rsPA.getString( "AutoRegistroDeportista.GradoObesidad");
+                
+               Usuario deportista = new Usuario(id, nombre, apellido1,apellido2,imc,grado);
+               listaDeportistas.add(deportista);
+            }
+            rsPA.close();
+
+        } catch (SQLException e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION,
+                    e.getMessage(), e.getErrorCode());
+        } catch (Exception e) {
+            throw new SNMPExceptions(SNMPExceptions.SQL_EXCEPTION, e.getMessage());
+        } finally {
+
+        }
+        return listaDeportistas;
+    }
+
 }

@@ -10,6 +10,8 @@ import DAO.SNMPExceptions;
 import java.sql.Connection;
 import java.sql.SQLException;
 import Model.AutoRegistroDeportista;
+import java.sql.ResultSet;
+import java.util.LinkedList;
 
 /**
  *

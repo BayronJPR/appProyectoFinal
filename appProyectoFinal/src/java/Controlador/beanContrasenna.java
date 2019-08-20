@@ -143,15 +143,15 @@ public class beanContrasenna implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Perfil",this.getTipoPerfil());
             //Se comprueba el Activo del usuario. Si es 0 (primera vez en el sistema) se redirecciona a otra pagina para cambiar la clave
 
-            if (contrasUsua.getTipoPerfil() == 1)//Si es Administrador
+            if (this.getTipoPerfil()== 1)//Si es Administrador
             {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
-            } else if (contrasUsua.getTipoPerfil() == 2)//Si es Instrcutor
+            } else if (this.getTipoPerfil() == 2)//Si es Instrcutor
             {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipalInstructor.xhtml");
             } else//Si es Deportista
             {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipal.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PaginaPrincipalDeportista.xhtml");
             }
 
         } else {

@@ -64,7 +64,7 @@ public class beanDisciplinaUsuario implements Serializable {
         this.mensaje = mensaje;
     }
 
-    public void insertarTelefono() throws SNMPExceptions, SQLException {
+    public void insertarDisciplinaUsuario() throws SNMPExceptions, SQLException {
 
         DisciplinaUsuario dis = new DisciplinaUsuario(this.identificacionUsuario, tipoIdentificacionUsuario, this.idDisciplina);
 

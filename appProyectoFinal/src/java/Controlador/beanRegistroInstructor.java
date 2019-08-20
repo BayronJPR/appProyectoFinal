@@ -14,6 +14,9 @@ import Model.PerfilUsuarioDB;
 import Model.Usuario;
 import Model.UsuarioDB;
 import DAO.SNMPExceptions;
+import Model.ContrasenaUsuario;
+import Model.ContrasenaUsuarioDB;
+import Model.Correo;
 import Model.TelefonoUsuario;
 import Model.TelefonoUsuarioDB;
 import javax.inject.Named;
@@ -46,7 +49,7 @@ public class beanRegistroInstructor implements Serializable {
     private int IdRegistra;
     private String FechaEdita;
     private int IdEdita;
-    private int LOG_ACVIVO;
+    private int LOG_ACVIVO = 1;
     // tabla telefono
     private int idTelefono;
     private String numeroTelefono;
@@ -58,6 +61,10 @@ public class beanRegistroInstructor implements Serializable {
     private String otrasSenas;
     // disciplina deportiva
     private int disciplinaDeportiva;
+
+    private String contrasenna;
+    private String contrasennaVieja;
+    private int tipoPerfil = 2;
 
     String mensaje;
     private String mensajeTel;
@@ -244,6 +251,30 @@ public class beanRegistroInstructor implements Serializable {
         this.disciplinaDeportiva = disciplinaDeportiva;
     }
 
+    public String getContrasenna() {
+        return contrasenna;
+    }
+
+    public void setContrasenna(String contrasenna) {
+        this.contrasenna = contrasenna;
+    }
+
+    public String getContrasennaVieja() {
+        return contrasennaVieja;
+    }
+
+    public void setContrasennaVieja(String contrasennaVieja) {
+        this.contrasennaVieja = contrasennaVieja;
+    }
+
+    public int getTipoPerfil() {
+        return tipoPerfil;
+    }
+
+    public void setTipoPerfil(int tipoPerfil) {
+        this.tipoPerfil = tipoPerfil;
+    }
+
     public String getMensaje() {
         return mensaje;
     }
@@ -271,10 +302,9 @@ public class beanRegistroInstructor implements Serializable {
     //Agrega los telefonos en la lista y los
     //muestra en la tabla.
     public void agregarTelefonos() {
+        TelefonoUsuario telefono = new TelefonoUsuario(this.getNumeroTelefono(), 1);
 
-//        TelefonoUsuario tel= new TelefonoUsuario(this.getNumeroTelefono(), 1);
-//        
-//        this.listaTelefnosUsuario.add(tel);
+        this.listaTelefnosUsuario.add(telefono);
         TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
         try {
 
@@ -308,8 +338,42 @@ public class beanRegistroInstructor implements Serializable {
     //Limpia la lista de los telefonos
     public void limpiarListaTelefonos() {
         this.listaTelefnosUsuario = null;
-        
-        
+    }
+    
+    public void limpiarCampos(){
+    this.setTipoIdentificacion(0);
+    this.setCedula(0);
+    this.setNombre("");
+    this.setApellido1("");
+    this.setApellido2("");
+    this.setNumeroTelefono("");
+    this.setCorreoElectronico("");
+    this.setCodprovincia(0);
+    this.setCodcanton(0);
+    this.setCoddistrito(0);
+    this.setCodbarrio(0);
+    this.setOtrasSenas("");  
+    this.setDisciplinaDeportiva(0);
+    this.setContrasenna("");
+    }   
+    
+      public void enviarEmail() {
+        try {
+            String destino = this.getCorreoElectronico();
+            String asunto = "Comprobación de Registro SIEAF Instructor(a)";
+            String mensajeCorreo = "Hola  " + this.getNombre() + "   " + this.getCedula()
+                    + "\nRegistro existoso!"
+                    + "\nEl administrador de sistemas ha realizado su registro"
+                    + "\nSu contraseña temporal es: " + this.contrasenna;
+
+            Correo objCorreo = new Correo();
+
+            objCorreo.enviarMail(destino, asunto, mensajeCorreo);
+            this.setMensaje("Correo Enviado!");
+
+        } catch (Exception e) {
+            this.setMensaje(e.getMessage());
+        }
     }
 
     public void guardarUsuario() throws SNMPExceptions, SQLException {
@@ -321,7 +385,6 @@ public class beanRegistroInstructor implements Serializable {
 //            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 //            String fechaRegis = sdf.format(fechaRegistra);
 //            String fechaEdt = sdf.format(FechaEdita);
-
             if (this.nombre.equals("") || this.apellido1.equals("")
                     || this.apellido2.equals("") || this.getCorreoElectronico().equals("")) {
 
@@ -354,13 +417,18 @@ public class beanRegistroInstructor implements Serializable {
                 /*insertar en tabla telefono*/
                 for (TelefonoUsuario tel : this.listaTelefnosUsuario) {
                     //código para acceder a cada campo del Item.
-                    // TelefonoUsuario tel = new TelefonoUsuario(this.cedula, this.tipoIdentificacion, this.numeroTelefono, log);
+                    // TelefonoUsuario telefono = new TelefonoUsuario(this.cedula, this.tipoIdentificacion, this.numeroTelefono, log);
                     TelefonoUsuarioDB telDB = new TelefonoUsuarioDB();
-                    telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.numeroTelefono, log);
+                    telDB.insertarTelfonosUsuario(this.getCedula(), this.getTipoIdentificacion(), this.getNumeroTelefono(), log);
                 }
                 DisciplinaUsuario disc = new DisciplinaUsuario(this.cedula, this.tipoIdentificacion, this.disciplinaDeportiva);
+                DisciplinaUsuarioDB disDB = new DisciplinaUsuarioDB();
+                disDB.insertarDisciplinaUsuario(cedula, tipoIdentificacion, disciplinaDeportiva);
 
-                // this.enviarEmail();
+                ContrasenaUsuario contra = new ContrasenaUsuario(this.cedula, this.tipoIdentificacion, this.contrasenna, this.contrasennaVieja, this.tipoPerfil, this.fechaRegistra, this.IdRegistra, this.FechaEdita, this.IdEdita, log);
+                ContrasenaUsuarioDB contraDB = new ContrasenaUsuarioDB();
+                contraDB.InsertarContrasenaUsuario(contra);
+                this.enviarEmail();
                 //redirigir a la pagina de Comprobacion
                 FacesContext.getCurrentInstance().getExternalContext().redirect("Ingreso.xhtml");
 

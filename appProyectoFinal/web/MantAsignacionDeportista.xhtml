@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-     <h:head>
+    <h:head>
         <title>Mantenimiento Asignacion Deportista</title>
         <link href="#{request.contextPath}/resources/images/icons/utn.ico"  rel="shortcut icon" type="image/x-icon"/>
         <h:outputStylesheet library="css" name="autoregistro.css"></h:outputStylesheet>
@@ -14,29 +14,79 @@
         <h:form>
             <a href="#{request.contextPath}/faces/PaginaPrincipal.xhtml">Regresar</a>
             <center>
-             <h1 style="color: #0E6251">Mantenimiento Asignacion de Deportista por instructor según Deporte</h1>
-             </center>
-             <br></br>
-             <br></br> 
-             <div align="center" style=" width: 65%">
-                <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
-              <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
-              <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
-            </div>
-             
-             <table>
-                 <tr>
-                        <td>Seleccionar Deportista</td>
-                        <td>
-                            <h:selectOneMenu label="Deportista"onchange="submit()" value="">
-                                <f:selectItems value=""></f:selectItems>
-                            </h:selectOneMenu>
-                        </td>
-                    </tr>
-                 
-             </table>
+                <h1 style="color: #0E6251">Mantenimiento Asignacion de Deportista por instructor según Deporte</h1>
+
+                <br></br>
+                <br></br> 
+                <div align="center" style=" width: 65%">
+                    <h:commandButton value="Nuevo" style="margin-left: 120px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Guardar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Editar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Borrar" style="margin-left: 5px; width: 10%"></h:commandButton>
+                    <h:commandButton value="Ayuda" style="margin-left: 5px; width: 10%"></h:commandButton>              
+                </div>
+                <br></br>
+                <br></br> 
+                <br></br>
+                <br></br> 
+
+                <h:outputText value="Seleccione el Deportista"></h:outputText>
+                <h:selectOneMenu label="cand" value="#{beanAutoRegistroDeportista.nombre}">
+                    <f:selectItems value="#{beanAutoRegistroDeportista.listaDeportistas}"></f:selectItems>
+                </h:selectOneMenu>
+                <br></br>
+                <br></br> 
+
+                <h:dataTable value="#{beanAutoRegistroDeportista.listaDeportistas}" var="per">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Identificacion"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.identificacion}"></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.nombre}"></h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Primer Apellido"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.apellido1}"></h:outputText>
+                    </h:column>  
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Segundo Apellido"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.apellido2}"></h:outputText>
+                    </h:column> 
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="IMC"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.imc}"></h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Grado Obesidad"></h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{per.grado}"></h:outputText>
+                    </h:column>   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Asignar Instructor"></h:outputText>
+                        </f:facet>
+                        <h:commandLink value="Consultar"  ></h:commandLink>
+                    </h:column>
+                </h:dataTable>
+                
+                <input type="button" class="botones" onclick=" location.href = 'PaginaPrincipal.xhtml'" value="Guardar" /> 
+                <input type="button" class="botones" onclick=" location.href = 'PaginaPrincipal.xhtml'" value="Salir" /> 
+
+            </center>
         </h:form>
     </h:body>
 </html>

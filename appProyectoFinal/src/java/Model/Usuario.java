@@ -36,6 +36,11 @@ public class Usuario {
     String fechaEdita;
     int idEdita;
     int log;
+    
+    int imc;
+    String grado;
+    
+    
 
     public Usuario(int identificacion, int tipoIdentificacion, String nombre, String apellido1, String apellido2, String correoElectronico, String fechaRegistra, int idRegistra, String fechaEdita, int idEdita, int log) {
         
@@ -51,6 +56,17 @@ public class Usuario {
         this.setIdEdita(idEdita);
         this.setLog(log);
     }
+
+    public Usuario(int identificacion, String nombre, String apellido1, String apellido2, int imc, String grado) {
+        this.setIdentificacion(identificacion);
+          this.setNombre(nombre);
+        this.setApellido1(apellido1);
+        this.setApellido2(apellido2);
+        this.setImc(imc);
+        this.setGrado(grado);
+    }
+    
+    
 
     public Usuario() {
     }
@@ -141,6 +157,22 @@ public class Usuario {
 
     public void setLog(int log) {
         this.log = log;
+    }
+
+    public String getGrado() {
+        return grado;
+    }
+
+    public void setGrado(String grado) {
+        this.grado = grado;
+    }
+
+    public int getImc() {
+        return imc;
+    }
+
+    public void setImc(int imc) {
+        this.imc = imc;
     }
     
     
